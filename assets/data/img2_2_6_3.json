@@ -1,0 +1,40 @@
+{
+  "main_title": "Koktajl mango i liczi",
+  "items": [
+    {
+      "name": "Jogurt naturalny",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "Dojrzałe mango",
+      "amount": 1,
+      "measure": "sztuk",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Owoce liczi",
+      "amount": 10,
+      "measure": "sztuk",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Świeży sok z limonki",
+      "amount": 1,
+      "measure": "łyżeczka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Miód",
+      "amount": 1,
+      "measure": "łyżeczka",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

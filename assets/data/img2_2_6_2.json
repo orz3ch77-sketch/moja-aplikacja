@@ -1,0 +1,54 @@
+{
+  "main_title": "Koktajl z papai i fig ",
+  "items": [
+    {
+      "name": "Papaja",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Figa",
+      "amount": 5,
+      "measure": "sztuk",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Mleko kokosowego",
+      "amount": 300,
+      "measure": "ml",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Syrop z agawy",
+      "amount": 1,
+      "measure": "łyżka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Listki mięty",
+      "amount": 5,
+      "measure": "Listków",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Truskawki",
+      "amount": 200,
+      "measure": "g",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Mleko migdałowe",
+      "amount": 100,
+      "measure": "ml",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

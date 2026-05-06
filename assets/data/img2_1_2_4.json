@@ -1,0 +1,33 @@
+{
+  "main_title": "Lane kluski ",
+  "items": [
+    {
+      "name": "jajo",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbir",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąka",
+      "amount": 1,
+      "measure": "łyżka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkuma",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "main_title": "Zupa cytrynowa",
+  "items": [
+    {
+      "name": "rosołu",
+      "amount": 3,
+      "measure": "litry",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jajek",
+      "amount": 5,
+      "measure": "sztuk",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sok z cytryny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

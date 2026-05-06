@@ -1,0 +1,138 @@
+{
+  "main_title": "Zupa fasolowa na sposób śródziemnomorski",
+  "items": [
+    {
+      "name": "fasoli perłowej (mała biała)",
+      "amount": 0.5,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "wołowiny z kością",
+      "amount": 0.5,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "tymianku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kminku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "wegety",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "bazylii",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "marchewki",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cebule",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "koper włoski",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czosnku",
+      "amount": 6,
+      "measure": "ząbków",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "selera naciowego",
+      "amount": 3,
+      "measure": "łodygi",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kabaczki",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "dojrzałe pomidory",
+      "amount": 4,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "oliwy",
+      "amount": 6,
+      "measure": "łyżek",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kminku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+{
+  "main_title": "Zupa śniadaniowa",
+  "items": [
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kaszy jaglanej",
+      "amount": 2,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "płatków owsianych",
+      "amount": 3,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "soku z cytryny lub utarte jabłko",
+      "amount": 1,
+      "measure": "łyżeczkę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "włoskich",
+      "amount": 5,
+      "measure": "orzechów",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "rodzynek",
+      "amount": 1,
+      "measure": "łyżeczka",
+      "base_unit": "g",
+      "base_value": 5
+    },
+    {
+      "name": "masło",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miód",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

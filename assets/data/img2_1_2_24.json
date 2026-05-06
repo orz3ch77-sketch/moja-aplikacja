@@ -1,0 +1,159 @@
+{
+  "main_title": "Zupa jesienna",
+  "items": [
+    {
+      "name": "tymianku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kość wołowa",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "marchewki",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pietruszkę",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "ziemniaków",
+      "amount": 0.5,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kapusty włoskiej",
+      "amount": 0.5,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cebule",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czosnku",
+      "amount": 2,
+      "measure": "ząbki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "świeżej łuskanej fasoli",
+      "amount": 1,
+      "measure": "szklankę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "wegetta",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pomidor",
+      "amount": 1,
+      "measure": "sztuk",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "siekanej zielonej pietruszki",
+      "amount": 1,
+      "measure": "garść",
+      "base_unit": "g",
+      "base_value": 30
+    },
+    {
+      "name": "mąki pszennej",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "majeranek",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "masła",
+      "amount": 1,
+      "measure": "łyżka",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "można dodać słodkiej śmietany",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

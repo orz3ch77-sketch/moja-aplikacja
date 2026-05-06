@@ -1,0 +1,117 @@
+{
+  "main_title": "Zupa wiosenna z zieleniny",
+  "items": [
+    {
+      "name": "tymianek",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkuma",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kości (wołowe lub cielęce)",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "ziemniaki",
+      "amount": 60,
+      "measure": "dag",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "młodej cebuli ze szczypiorem",
+      "amount": 1,
+      "measure": "pęczek",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czosnku,",
+      "amount": 2,
+      "measure": "ząbki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbir",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "wegetta",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "liście kalarepy, selera, pietruszki i kopru,",
+      "amount": 1,
+      "measure": "garść",
+      "base_unit": "g",
+      "base_value": 30
+    },
+    {
+      "name": "majeranek",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkuma",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "masła",
+      "amount": 1,
+      "measure": "łyżka",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "kminek",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

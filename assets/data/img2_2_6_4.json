@@ -1,0 +1,47 @@
+{
+  "main_title": "Koktail gęsty owocowy ( moc )",
+  "items": [
+    {
+      "name": "Mleko migdałowego",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "Cynamon",
+      "amount": 0.5,
+      "measure": "łyżeczki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Borówki",
+      "amount": 100,
+      "measure": "g",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Banan",
+      "amount": 1,
+      "measure": "sztuk",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Truskawki",
+      "amount": 200,
+      "measure": "g",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Nasiona chia",
+      "amount": 2,
+      "measure": "łyżeczki",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

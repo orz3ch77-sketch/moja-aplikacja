@@ -1,0 +1,12 @@
+{
+  "main_title": "Roślinne mleko migdałowe",
+  "items": [
+    {
+      "name": "Migdały blanszowane",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    }
+  ]
+}

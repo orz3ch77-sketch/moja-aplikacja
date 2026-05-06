@@ -1,0 +1,33 @@
+{
+  "main_title": "Koktajl owocowo-jogurtowy",
+  "items": [
+    {
+      "name": "Jogurt naturalny",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "Banan",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Czarne jagody",
+      "amount": 100,
+      "measure": "g",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Brzoskwinie",
+      "amount": 2,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}
