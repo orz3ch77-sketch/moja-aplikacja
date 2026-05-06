@@ -1,0 +1,22 @@
+name: Deploy Firebase Hosting
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: stable
+
+      - run: flutter pub get
+      - run: flutter build web
+
+      - run: npm install -g firebase-tools
+
+      - run: firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
