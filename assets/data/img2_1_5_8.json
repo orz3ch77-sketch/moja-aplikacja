@@ -1,0 +1,82 @@
+{
+  "main_title": "Omlet z pieczarkami",
+  "items": [
+    {
+      "name": "pieczarek smaży",
+      "amount": 20,
+      "measure": "dag",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "masło",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kminku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czosnku",
+      "amount": 1,
+      "measure": "ząbek",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "łyżeczkę pietruszki",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "tymianku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jajka",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

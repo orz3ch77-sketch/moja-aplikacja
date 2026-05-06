@@ -1,0 +1,54 @@
+{
+  "main_title": "Ziemniaki z wody",
+  "items": [
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kminku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "ziemniaków",
+      "amount": 1,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "masła",
+      "amount": 0.5,
+      "measure": "łyżeczki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cebulę",
+      "amount": 1,
+      "measure": "sztukę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czosnku",
+      "amount": 2,
+      "measure": "ząbki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

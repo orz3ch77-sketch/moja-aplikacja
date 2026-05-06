@@ -1,0 +1,82 @@
+{
+  "main_title": "Słodkie nadzienie z twarogu",
+  "items": [
+    {
+      "name": "tłustego twarogu",
+      "amount": 30,
+      "measure": "dag",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "słodka śmietana",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "żółtko",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miód",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "soli",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "dodatek dżem",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "dodatek konfitury",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "dodatek nutella",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "dodatek słodkie sosy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

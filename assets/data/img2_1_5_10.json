@@ -1,0 +1,82 @@
+{
+  "main_title": "Krokiety z kaszy jęczmiennej",
+  "items": [
+    {
+      "name": "kaszy jęczmiennej",
+      "amount": 3,
+      "measure": "szklanki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mielonego mięsa lub/i wędliny np. szynki, bekonu),",
+      "amount": 25,
+      "measure": "dag",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "zmielone jarzyny z zupy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jajko",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz czarny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kolendry",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "wegety",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "azylii",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "majeranku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

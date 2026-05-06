@@ -1,0 +1,61 @@
+{
+  "main_title": "Smażone banany",
+  "items": [
+    {
+      "name": "bananów",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąka",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jajko",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "olej",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "masło",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cynamon",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbir",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miód",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

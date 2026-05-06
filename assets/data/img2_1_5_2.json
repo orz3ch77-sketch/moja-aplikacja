@@ -1,0 +1,61 @@
+{
+  "main_title": "Naleśniki",
+  "items": [
+    {
+      "name": "mąki pszennej",
+      "amount": 1.5,
+      "measure": "szklanki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jajka",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "gałki muszkatołowej",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miodu",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "olej",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "main_title": "Kluski serowe",
+  "items": [
+    {
+      "name": "tłustego twarogu",
+      "amount": 0.5,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąki pszennej",
+      "amount": 4,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "kurkuma",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jajka",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pszennej mąki",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy,",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "podawać z polane masłem",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "podawać z roztopionym miodem",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "podawać z cynamonem",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

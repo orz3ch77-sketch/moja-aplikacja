@@ -1,0 +1,96 @@
+{
+  "main_title": "Placki ziemniaczane",
+  "items": [
+    {
+      "name": "ziemniaków",
+      "amount": 1,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąka kukurydziana",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jaj",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbir",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cebulę",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czosnku",
+      "amount": 1,
+      "measure": "ząbek",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz czarny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąki pszennej,",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Podawać z kwaśnym mlekiem",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Podawać z kwaśną śmietaną",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Podawać z żywym jogurtem.",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

@@ -30,9 +30,8 @@ int naturalCompare(String a, String b) {
     final an = int.tryParse(aa[i]);
     final bn = int.tryParse(bb[i]);
 
-    final result = an != null && bn != null
-        ? an.compareTo(bn)
-        : aa[i].compareTo(bb[i]);
+    final result =
+        an != null && bn != null ? an.compareTo(bn) : aa[i].compareTo(bb[i]);
 
     if (result != 0) return result;
   }
@@ -52,6 +51,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox('todo_links');
   await Hive.openBox('time_links');
+  await Hive.openBox('favorite_links');
   await Hive.openBox('shopping_lists');
   await Hive.openBox('shopping_lists_main');
 
@@ -67,10 +67,7 @@ Route slideRoute(Widget page) {
         end: Offset.zero,
       ).animate(animation);
 
-      return SlideTransition(
-        position: offset,
-        child: child,
-      );
+      return SlideTransition(position: offset, child: child);
     },
   );
 }
@@ -87,55 +84,79 @@ class MyApp extends StatelessWidget {
   }
 }
 
-Widget bg() => Positioned.fill(
-      child: Image.asset(
-        'assets/pg.webp',
-        fit: BoxFit.cover,
+Widget bg() =>
+    Positioned.fill(child: Image.asset('assets/pg.webp', fit: BoxFit.cover));
+
+Widget fancyTileFrame(String path) {
+  return Container(
+    padding: const EdgeInsets.all(8),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      gradient: const LinearGradient(
+        colors: [Colors.white24, Colors.black26],
+        begin: Alignment.topLeft,
+        end: Alignment.bottomRight,
       ),
-    );
+      boxShadow: [
+        BoxShadow(
+          color: Colors.black.withValues(alpha: 0.6),
+          offset: const Offset(4, 4),
+          blurRadius: 8,
+        ),
+        const BoxShadow(
+          color: Colors.white24,
+          offset: Offset(-2, -2),
+          blurRadius: 6,
+        ),
+      ],
+      border: Border.all(color: Colors.white70, width: 2),
+    ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(14),
+      child: SizedBox(
+        width: 150,
+        height: 150,
+        child: Image.asset(path, fit: BoxFit.contain),
+      ),
+    ),
+  );
+}
 
 Widget fancyTile(String path) {
+  return Center(child: fancyTileFrame(path));
+}
+
+Widget selectableFancyTile({
+  required String path,
+  required bool selectionMode,
+  required bool selected,
+}) {
   return Center(
-    child: Container(
-      padding: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        gradient: const LinearGradient(
-          colors: [
-            Colors.white24,
-            Colors.black26,
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.6),
-            offset: const Offset(4, 4),
-            blurRadius: 8,
+    child: Stack(
+      clipBehavior: Clip.none,
+      children: [
+        fancyTileFrame(path),
+        if (selectionMode)
+          Positioned(
+            top: 8,
+            right: 8,
+            child: Container(
+              width: 28,
+              height: 28,
+              decoration: BoxDecoration(
+                color: selected ? Colors.green : Colors.white,
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: selected
+                  ? const Icon(
+                      Icons.check,
+                      color: Colors.white,
+                      size: 20,
+                    )
+                  : null,
+            ),
           ),
-          const BoxShadow(
-            color: Colors.white24,
-            offset: Offset(-2, -2),
-            blurRadius: 6,
-          ),
-        ],
-        border: Border.all(
-          color: Colors.white70,
-          width: 2,
-        ),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(14),
-        child: SizedBox(
-          width: 150,
-          height: 150,
-          child: Image.asset(
-            path,
-            fit: BoxFit.contain,
-          ),
-        ),
-      ),
+      ],
     ),
   );
 }
@@ -201,7 +222,10 @@ Widget topBar({
                 ),
               if (onNext != null)
                 IconButton(
-                  icon: const Icon(Icons.arrow_forward_ios, color: Colors.white),
+                  icon: const Icon(
+                    Icons.arrow_forward_ios,
+                    color: Colors.white,
+                  ),
                   onPressed: onNext,
                 ),
             ],
@@ -220,17 +244,12 @@ class StartPage extends StatelessWidget {
     return Scaffold(
       body: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            slideRoute(const CategoryPage()),
-          );
+          Navigator.push(context, slideRoute(const CategoryPage()));
         },
         child: Stack(
           children: [
             bg(),
-            Center(
-              child: Image.asset('assets/start.webp'),
-            ),
+            Center(child: Image.asset('assets/start.png')),
           ],
         ),
       ),
@@ -266,10 +285,7 @@ class CategoryPage extends StatelessWidget {
 
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    slideRoute(LevelPage(base: base)),
-                  );
+                  Navigator.push(context, slideRoute(LevelPage(base: base)));
                 },
                 child: fancyTile('assets/$base.webp'),
               );
@@ -284,10 +300,7 @@ class CategoryPage extends StatelessWidget {
 class LevelPage extends StatefulWidget {
   final String base;
 
-  const LevelPage({
-    super.key,
-    required this.base,
-  });
+  const LevelPage({super.key, required this.base});
 
   @override
   State<LevelPage> createState() => _LevelPageState();
@@ -318,94 +331,93 @@ class _LevelPageState extends State<LevelPage> {
   }
 
   List<String> galleryFor(String base) {
-    return assetList
-        .where((e) => e.startsWith('assets/${base}_g'))
-        .toList()
+    return assetList.where((e) => e.startsWith('assets/${base}_g')).toList()
       ..sort(naturalCompare);
+  }
+
+  String linksBoxNameFor(String base) {
+    if (base == 'img8_2') {
+      return 'todo_links';
+    }
+
+    if (base == 'img8_3') {
+      return 'time_links';
+    }
+
+    return 'favorite_links';
+  }
+
+  bool get isLinksLevel {
+    return widget.base == 'img8_2' ||
+        widget.base == 'img8_3' ||
+        widget.base == 'img8_4';
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.base == 'img8_2' || widget.base == 'img8_3') {
-      final box = Hive.box(
-        widget.base == 'img8_2' ? 'todo_links' : 'time_links',
-      );
-
-      final links = box.values.toList();
+    if (isLinksLevel) {
+      final box = Hive.box(linksBoxNameFor(widget.base));
 
       return Scaffold(
         body: Stack(
           children: [
             bg(),
-            GridView.builder(
-              padding: const EdgeInsets.all(16),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-              ),
-              itemCount: links.length,
-              itemBuilder: (_, i) {
-                final item = Map<String, dynamic>.from(links[i]);
-                final imagePath = item['imagePath'] as String;
-                final galleryImages = List<String>.from(item['galleryImages']);
+            ValueListenableBuilder(
+              valueListenable: box.listenable(),
+              builder: (context, Box box, _) {
+                final links = box.values.toList();
 
-                return GestureDetector(
-                  onTap: () {
-                    if (selectionMode) {
-                      setState(() {
-                        if (selectedItems.contains(i)) {
-                          selectedItems.remove(i);
-                        } else {
-                          selectedItems.add(i);
+                return GridView.builder(
+                  padding: const EdgeInsets.all(16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                  ),
+                  itemCount: links.length,
+                  itemBuilder: (_, i) {
+                    final item = Map<String, dynamic>.from(links[i]);
+                    final imagePath = item['imagePath'] as String;
+                    final galleryImages = List<String>.from(
+                      item['galleryImages'],
+                    );
+
+                    return GestureDetector(
+                      onTap: () {
+                        if (selectionMode) {
+                          setState(() {
+                            if (selectedItems.contains(i)) {
+                              selectedItems.remove(i);
+                            } else {
+                              selectedItems.add(i);
+                            }
+                          });
+                          return;
                         }
-                      });
-                      return;
-                    }
 
-                    Navigator.push(
-                      context,
-                      slideRoute(
-                        GalleryPage(
-                          images: galleryImages,
-                          levelImage: imagePath,
-                        ),
+                        Navigator.push(
+                          context,
+                          slideRoute(
+                            GalleryPage(
+                              images: galleryImages,
+                              levelImage: imagePath,
+                            ),
+                          ),
+                        );
+                      },
+                      onLongPress: () {
+                        setState(() {
+                          selectionMode = true;
+                          selectedItems.add(i);
+                        });
+                      },
+                      child: selectableFancyTile(
+                        path: imagePath,
+                        selectionMode: selectionMode,
+                        selected: selectedItems.contains(i),
                       ),
                     );
                   },
-                  onLongPress: () {
-                    setState(() {
-                      selectionMode = true;
-                      selectedItems.add(i);
-                    });
-                  },
-                  child: Stack(
-                    children: [
-                      fancyTile(imagePath),
-                      if (selectionMode)
-                        Positioned(
-                          top: 8,
-                          right: 8,
-                          child: Container(
-                            width: 28,
-                            height: 28,
-                            decoration: BoxDecoration(
-                              color: selectedItems.contains(i)
-                                  ? Colors.green
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: selectedItems.contains(i)
-                                ? const Icon(
-                                    Icons.check,
-                                    color: Colors.white,
-                                    size: 20,
-                                  )
-                                : null,
-                          ),
-                        ),
-                    ],
-                  ),
                 );
               },
             ),
@@ -489,7 +501,9 @@ class _LevelPageState extends State<LevelPage> {
                     return;
                   }
 
-                  if (nextBase == 'img8_2' || nextBase == 'img8_3') {
+                  if (nextBase == 'img8_2' ||
+                      nextBase == 'img8_3' ||
+                      nextBase == 'img8_4') {
                     Navigator.push(
                       context,
                       slideRoute(LevelPage(base: nextBase)),
@@ -503,10 +517,7 @@ class _LevelPageState extends State<LevelPage> {
                     Navigator.push(
                       context,
                       slideRoute(
-                        GalleryPage(
-                          images: gallery,
-                          levelImage: level,
-                        ),
+                        GalleryPage(images: gallery, levelImage: level),
                       ),
                     );
                     return;
@@ -550,6 +561,7 @@ class _GalleryPageState extends State<GalleryPage> {
   late PageController controller;
   int index = 0;
 
+  bool chromeVisible = true;
   bool toolsOpen = false;
   bool isFavorite = false;
 
@@ -557,14 +569,54 @@ class _GalleryPageState extends State<GalleryPage> {
   void initState() {
     super.initState();
     controller = PageController();
+    isFavorite = isSavedInBox('favorite_links');
+  }
+
+  bool isSavedInBox(String boxName) {
+    final box = Hive.box(boxName);
+
+    return box.values.any((value) {
+      final item = Map<String, dynamic>.from(value);
+      return item['imagePath'] == widget.levelImage;
+    });
   }
 
   Future<void> saveToBox(String boxName) async {
+    if (isSavedInBox(boxName)) {
+      return;
+    }
+
     final box = Hive.box(boxName);
 
     await box.add({
       'imagePath': widget.levelImage,
       'galleryImages': widget.images,
+    });
+  }
+
+  Future<void> removeFromBox(String boxName) async {
+    final box = Hive.box(boxName);
+    final keyToDelete = box.keys.cast<dynamic>().firstWhere((key) {
+      final item = Map<String, dynamic>.from(box.get(key));
+      return item['imagePath'] == widget.levelImage;
+    }, orElse: () => null);
+
+    if (keyToDelete != null) {
+      await box.delete(keyToDelete);
+    }
+  }
+
+  Future<void> toggleFavorite() async {
+    if (isFavorite) {
+      await removeFromBox('favorite_links');
+    } else {
+      await saveToBox('favorite_links');
+    }
+
+    if (!mounted) return;
+
+    setState(() {
+      isFavorite = !isFavorite;
     });
   }
 
@@ -622,10 +674,31 @@ class _GalleryPageState extends State<GalleryPage> {
     final shoppingListExists = hasShoppingList();
 
     return Positioned(
-      right: -8,
-      top: MediaQuery.of(context).size.height * 0.35,
-      child: Row(
+      right: 0,
+      top: MediaQuery.of(context).size.height * 0.24,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
         children: [
+          Container(
+            decoration: const BoxDecoration(
+              color: Color(0xFF4E342E),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(14),
+                bottomLeft: Radius.circular(14),
+              ),
+            ),
+            child: IconButton(
+              icon: Icon(
+                toolsOpen ? Icons.keyboard_arrow_up : Icons.arrow_back,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                setState(() {
+                  toolsOpen = !toolsOpen;
+                });
+              },
+            ),
+          ),
           if (toolsOpen)
             Container(
               width: 70,
@@ -645,11 +718,7 @@ class _GalleryPageState extends State<GalleryPage> {
                       isFavorite ? Icons.favorite : Icons.favorite_border,
                       color: isFavorite ? Colors.red : Colors.white,
                     ),
-                    onPressed: () {
-                      setState(() {
-                        isFavorite = !isFavorite;
-                      });
-                    },
+                    onPressed: toggleFavorite,
                   ),
                   IconButton(
                     icon: const Icon(
@@ -684,40 +753,28 @@ class _GalleryPageState extends State<GalleryPage> {
                     onPressed: () {},
                   ),
                   IconButton(
-                    icon: const Icon(
-                      Icons.mail_outline,
-                      color: Colors.white,
-                    ),
+                    icon: const Icon(Icons.mail_outline, color: Colors.white),
                     onPressed: () {},
                   ),
                 ],
               ),
             ),
-          Container(
-            margin: const EdgeInsets.only(
-              right: 8,
-              top: 8,
-              bottom: 8,
-            ),
-            decoration: BoxDecoration(
-              color: const Color(0xFF4E342E),
-              borderRadius: BorderRadius.circular(14),
-            ),
-            child: IconButton(
-              icon: Icon(
-                toolsOpen ? Icons.arrow_forward : Icons.arrow_back,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                setState(() {
-                  toolsOpen = !toolsOpen;
-                });
-              },
-            ),
-          ),
         ],
       ),
     );
+  }
+
+  void hideGalleryBars() {
+    setState(() {
+      chromeVisible = false;
+      toolsOpen = false;
+    });
+  }
+
+  void showGalleryBars() {
+    setState(() {
+      chromeVisible = true;
+    });
   }
 
   void next() {
@@ -765,20 +822,26 @@ class _GalleryPageState extends State<GalleryPage> {
             itemCount: widget.images.length,
             onPageChanged: (i) => setState(() => index = i),
             itemBuilder: (_, i) {
-              return InteractiveViewer(
-                child: Center(
-                  child: Image.asset(widget.images[i]),
+              return GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: hideGalleryBars,
+                onDoubleTap: showGalleryBars,
+                child: InteractiveViewer(
+                  minScale: 0.8,
+                  maxScale: 5,
+                  child: Center(child: Image.asset(widget.images[i])),
                 ),
               );
             },
           ),
-          buildToolsPanel(),
-          topBar(
-            context: context,
-            onNext: next,
-            onPrev: prev,
-            counter: '${index + 1} / ${widget.images.length}',
-          ),
+          if (chromeVisible) buildToolsPanel(),
+          if (chromeVisible)
+            topBar(
+              context: context,
+              onNext: next,
+              onPrev: prev,
+              counter: '${index + 1} / ${widget.images.length}',
+            ),
         ],
       ),
     );
@@ -788,10 +851,7 @@ class _GalleryPageState extends State<GalleryPage> {
 class ShoppingListPage extends StatefulWidget {
   final String galleryImage;
 
-  const ShoppingListPage({
-    super.key,
-    required this.galleryImage,
-  });
+  const ShoppingListPage({super.key, required this.galleryImage});
 
   @override
   State<ShoppingListPage> createState() => _ShoppingListPageState();
@@ -868,12 +928,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
 
     final mainBox = Hive.box('shopping_lists_main');
 
-    final mainItems = List.from(
-      mainBox.get(
-        'items',
-        defaultValue: [],
-      ),
-    );
+    final mainItems = List.from(mainBox.get('items', defaultValue: []));
 
     for (final item in data!['items']) {
       mainItems.add(item);
@@ -881,13 +936,7 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
 
     await mainBox.put('items', mainItems);
 
-    await Hive.box('shopping_lists').put(
-      fileName,
-      {
-        ...data!,
-        'items': [],
-      },
-    );
+    await Hive.box('shopping_lists').put(fileName, {...data!, 'items': []});
 
     setState(() {
       data!['items'] = [];
@@ -907,17 +956,11 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
             child: SafeArea(
               child: Container(
                 color: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 8,
-                  vertical: 8,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
                 child: Row(
                   children: [
                     IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.black,
-                      ),
+                      icon: const Icon(Icons.arrow_back, color: Colors.black),
                       onPressed: () {
                         Navigator.pop(context);
                       },
@@ -941,15 +984,10 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
             ),
           ),
           if (data == null)
-            const Center(
-              child: CircularProgressIndicator(),
-            )
+            const Center(child: CircularProgressIndicator())
           else
             Padding(
-              padding: const EdgeInsets.only(
-                top: 90,
-                bottom: 100,
-              ),
+              padding: const EdgeInsets.only(top: 90, bottom: 100),
               child: ListView(
                 padding: const EdgeInsets.all(20),
                 children: [
@@ -965,87 +1003,75 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                     child: const Text('Odśwież listę'),
                   ),
                   const SizedBox(height: 20),
-                  ...List.generate(
-                    data!['items'].length,
-                    (i) {
-                      final item = data!['items'][i];
-                      final selected = deletingIndex == i;
+                  ...List.generate(data!['items'].length, (i) {
+                    final item = data!['items'][i];
+                    final selected = deletingIndex == i;
 
-                      return Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        decoration: BoxDecoration(
-                          border: selected
-                              ? Border.all(
-                                  color: Colors.red,
-                                  width: 2,
-                                )
-                              : null,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: ListTile(
-                                title: Text(item['name']),
-                                subtitle: Text(
-                                  "${item['amount']} ${item['measure']}",
-                                ),
+                    return Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      decoration: BoxDecoration(
+                        border: selected
+                            ? Border.all(color: Colors.red, width: 2)
+                            : null,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: ListTile(
+                              title: Text(item['name']),
+                              subtitle: Text(
+                                "${item['amount']} ${item['measure']}",
                               ),
                             ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              ),
-                              onPressed: () async {
-                                setState(() {
-                                  deletingIndex = i;
-                                });
+                          ),
+                          IconButton(
+                            icon: const Icon(Icons.delete, color: Colors.red),
+                            onPressed: () async {
+                              setState(() {
+                                deletingIndex = i;
+                              });
 
-                                final confirm = await showDialog<bool>(
-                                  context: context,
-                                  builder: (_) => AlertDialog(
-                                    content: const Text(
-                                      'Potwierdź usunięcie',
+                              final confirm = await showDialog<bool>(
+                                context: context,
+                                builder: (_) => AlertDialog(
+                                  content: const Text('Potwierdź usunięcie'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context, false);
+                                      },
+                                      child: const Text('Anuluj'),
                                     ),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context, false);
-                                        },
-                                        child: const Text('Anuluj'),
-                                      ),
-                                      TextButton(
-                                        onPressed: () {
-                                          Navigator.pop(context, true);
-                                        },
-                                        child: const Text('OK'),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context, true);
+                                      },
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
 
-                                if (confirm == true) {
-                                  setState(() {
-                                    data!['items'].removeAt(i);
-                                  });
-
-                                  await Hive.box('shopping_lists').put(
-                                    fileName,
-                                    data,
-                                  );
-                                }
-
+                              if (confirm == true) {
                                 setState(() {
-                                  deletingIndex = null;
+                                  data!['items'].removeAt(i);
                                 });
-                              },
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+
+                                await Hive.box(
+                                  'shopping_lists',
+                                ).put(fileName, data);
+                              }
+
+                              setState(() {
+                                deletingIndex = null;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  }),
                 ],
               ),
             ),
@@ -1099,10 +1125,7 @@ class _MainShoppingListPageState extends State<MainShoppingListPage> {
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.black,
-                    ),
+                    icon: const Icon(Icons.arrow_back, color: Colors.black),
                     onPressed: () {
                       Navigator.pop(context);
                     },
@@ -1125,19 +1148,11 @@ class _MainShoppingListPageState extends State<MainShoppingListPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(
-              top: 90,
-              bottom: 150,
-            ),
+            padding: const EdgeInsets.only(top: 90, bottom: 150),
             child: ValueListenableBuilder(
               valueListenable: box.listenable(),
               builder: (context, Box box, _) {
-                final items = List.from(
-                  box.get(
-                    'items',
-                    defaultValue: [],
-                  ),
-                );
+                final items = List.from(box.get('items', defaultValue: []));
 
                 return ListView.builder(
                   itemCount: items.length,
@@ -1149,10 +1164,7 @@ class _MainShoppingListPageState extends State<MainShoppingListPage> {
                       margin: const EdgeInsets.only(bottom: 8),
                       decoration: BoxDecoration(
                         border: selected
-                            ? Border.all(
-                                color: Colors.red,
-                                width: 2,
-                              )
+                            ? Border.all(color: Colors.red, width: 2)
                             : null,
                         borderRadius: BorderRadius.circular(8),
                       ),
@@ -1171,10 +1183,7 @@ class _MainShoppingListPageState extends State<MainShoppingListPage> {
                             ),
                           ),
                           IconButton(
-                            icon: const Icon(
-                              Icons.delete,
-                              color: Colors.red,
-                            ),
+                            icon: const Icon(Icons.delete, color: Colors.red),
                             onPressed: () async {
                               setState(() {
                                 deletingIndex = i;
@@ -1336,10 +1345,7 @@ class _MainShoppingListPageState extends State<MainShoppingListPage> {
                         }
 
                         final items = List.from(
-                          box.get(
-                            'items',
-                            defaultValue: [],
-                          ),
+                          box.get('items', defaultValue: []),
                         );
 
                         items.add({
