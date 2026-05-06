@@ -12,9 +12,11 @@ jobs:
 
       - uses: subosito/flutter-action@v2
         with:
-          flutter-version: stable
+          flutter-version: "3.32.0"
+          channel: stable
 
       - run: flutter pub get
+
       - run: flutter build web
 
       - run: npm install -g firebase-tools
