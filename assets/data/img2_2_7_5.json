@@ -1,0 +1,26 @@
+{
+  "main_title": "Kompot jeżynowo - jabłkowy",
+  "items": [
+    {
+      "name": "jeżyn",
+      "amount": 500,
+      "measure": "gram",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jabłek kwaśniejszych",
+      "amount": 6,
+      "measure": "sztuk",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cukru",
+      "amount": 250,
+      "measure": "gram",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

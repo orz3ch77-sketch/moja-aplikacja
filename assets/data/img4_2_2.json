@@ -1,0 +1,33 @@
+{
+  "main_title": "Proszek do prania białego",
+  "items": [
+    {
+      "name": "boraksu",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "sody kalcynowanej",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "nadwęglanu sodu",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "olejku z drzewa herbacianego",
+      "amount": 10,
+      "measure": "kropli",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

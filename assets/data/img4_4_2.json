@@ -1,0 +1,26 @@
+{
+  "main_title": "Płyny do płukania ubrań Kwaskowy płyn cytrynowy",
+  "items": [
+    {
+      "name": " kwasku cytrynowego",
+      "amount": 3,
+      "measure": "łyżki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "olejku eterycznego",
+      "amount": 20,
+      "measure": "kropli",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "(np. cytrynowy, drzewa herbacianego)",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

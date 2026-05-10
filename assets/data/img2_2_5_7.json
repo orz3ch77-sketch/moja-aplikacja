@@ -1,0 +1,26 @@
+{
+  "main_title": "Pomarańczy, marchwi i ananasa",
+  "items": [
+    {
+      "name": "pomarańcze",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "średniej wielkości marchewki",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "niewielkiego ananasa",
+      "amount": 0.5,
+      "measure": "sztuki ",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

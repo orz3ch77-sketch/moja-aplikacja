@@ -1,0 +1,33 @@
+{
+  "main_title": "Płyny do podłóg drewnianych",
+  "items": [
+    {
+      "name": "octu jabłkowego",
+      "amount": 0.25,
+      "measure": "szklanki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "oliwy z oliwek",
+      "amount": 1,
+      "measure": "łyżka",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "lub oleju lnianego",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "olejku eterycznego",
+      "amount": 10,
+      "measure": "kropli ",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

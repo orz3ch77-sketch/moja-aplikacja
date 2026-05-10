@@ -1,0 +1,33 @@
+{
+  "main_title": "Płyny do podłóg octowo cytrynowy",
+  "items": [
+    {
+      "name": " białego octu",
+      "amount": 0.7,
+      "measure": "szklanki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "0,5 sztuki cytryny",
+      "amount": 0.5,
+      "measure": "sztuki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "olejku eterycznego",
+      "amount": 15,
+      "measure": "kropli ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "(np. cytrynowego, lawendowego, z drzewa herbacianego)",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

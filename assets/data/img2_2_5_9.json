@@ -1,0 +1,33 @@
+{
+  "main_title": "Jabłka, kiwi i grejpfruta",
+  "items": [
+    {
+      "name": "jabłko",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kiwi",
+      "amount": 0.5,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "grejpfruta",
+      "amount": 0.5,
+      "measure": "sztuki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Świeży szpinak",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

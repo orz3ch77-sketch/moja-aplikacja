@@ -1,0 +1,124 @@
+{
+  "main_title": "Żeberka duszone na słodko",
+  "items": [
+    {
+      "name": "żeberek wieprzowych",
+      "amount": 1,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąka ziemniaczana",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czystej wódki",
+      "amount": 4,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "sosu sojowego",
+      "amount": 1,
+      "measure": "łyżka",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "oleju",
+      "amount": 3,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "wegety",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "soku z cytryny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "bazylii",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "tymianku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kminku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miodu.",
+      "amount": 1,
+      "measure": "łyżeczkę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "przyprawy pięć smaków",
+      "amount": 2,
+      "measure": "łyżeczki",
+      "base_unit": "g",
+      "base_value": 5
+    },
+    {
+      "name": "pieprzu cayenne",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprzu czarnego",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "main_title": "Odświżeacz szybki uniwersalny",
+  "items": [
+    {
+      "name": "wody destylowanej",
+      "amount": 0.5,
+      "measure": "szklanki    ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "alkoholu (wódka lub spirytus)",
+      "amount": 0.5,
+      "measure": "szklanki     ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "   ulubionych olejków eterycznych",
+      "amount": 40,
+      "measure": "kropli",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "(np. lawenda, cytryna, eukaliptus)",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Butelka ze spryskiwaczem",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

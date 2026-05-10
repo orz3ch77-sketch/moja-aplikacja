@@ -1,0 +1,40 @@
+{
+  "main_title": "Pomidorowy orzeźwienie",
+  "items": [
+    {
+      "name": "dojrzałych pomidorów",
+      "amount": 5,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czerwona papryka",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "selera naciowego",
+      "amount": 1,
+      "measure": "łodyga",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól morskia",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprzu cayenne",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "main_title": "Słodka marchew z nutą pietruszki",
+  "items": [
+    {
+      "name": "marchewki",
+      "amount": 4,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "natki pietruszki",
+      "amount": 1,
+      "measure": "pęczek",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jabłko",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

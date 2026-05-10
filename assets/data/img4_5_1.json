@@ -1,0 +1,19 @@
+{
+  "main_title": "",
+  "items": [
+    {
+      "name": "octu spirytusowego",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "płynu do mycia naczyń",
+      "amount": 1,
+      "measure": "łyżeczka",
+      "base_unit": "g",
+      "base_value": 5
+    }
+  ]
+}

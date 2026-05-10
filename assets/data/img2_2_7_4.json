@@ -1,0 +1,61 @@
+{
+  "main_title": "Kompot z suszu z miodem",
+  "items": [
+    {
+      "name": "suszonych śliwek",
+      "amount": 300,
+      "measure": "gram",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "suszonych jabłek",
+      "amount": 200,
+      "measure": "gram",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "suszonych gruszek",
+      "amount": 200,
+      "measure": "gram",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "skórka",
+      "amount": 2,
+      "measure": "cytryny",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "laski cynamonu",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "goździków",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miodu",
+      "amount": 3,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "rodzynek",
+      "amount": 1,
+      "measure": "garść",
+      "base_unit": "g",
+      "base_value": 30
+    }
+  ]
+}

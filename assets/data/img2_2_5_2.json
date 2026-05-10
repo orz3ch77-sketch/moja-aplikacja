@@ -1,0 +1,33 @@
+{
+  "main_title": "Burak, Marchew, Jabłko i Imbir",
+  "items": [
+    {
+      "name": "buraka",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "marchewki",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jabłko",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "korzenia imbiru",
+      "amount": 2,
+      "measure": "cm",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

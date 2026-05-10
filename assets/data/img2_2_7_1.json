@@ -1,0 +1,47 @@
+{
+  "main_title": "Kompot z jabłek z miodem oraz miętą",
+  "items": [
+    {
+      "name": "jabłka",
+      "amount": 4,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "rodzynek",
+      "amount": 1,
+      "measure": "garść",
+      "base_unit": "g",
+      "base_value": 30
+    },
+    {
+      "name": "goździki",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miodu",
+      "amount": 2,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "mięty",
+      "amount": 10,
+      "measure": "listków",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "suszone gruszki",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

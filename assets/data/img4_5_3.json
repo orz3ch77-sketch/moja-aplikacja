@@ -1,0 +1,19 @@
+{
+  "main_title": "Płyny do szyb z cytryną",
+  "items": [
+    {
+      "name": "octu",
+      "amount": 0.5,
+      "measure": "szklanki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "soku z cytryny",
+      "amount": 2,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    }
+  ]
+}

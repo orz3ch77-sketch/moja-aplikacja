@@ -1,0 +1,26 @@
+{
+  "main_title": "Odświeżacz neutralizator zapachów",
+  "items": [
+    {
+      "name": "sody oczyszczonej",
+      "amount": 3,
+      "measure": "łyżki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "olejku eterycznego",
+      "amount": 20,
+      "measure": "kropli ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "(np. cytrynowy, herbaciany)",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

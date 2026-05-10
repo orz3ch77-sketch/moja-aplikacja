@@ -1,0 +1,26 @@
+{
+  "main_title": "Płyny do szyb z alkoholem",
+  "items": [
+    {
+      "name": "alkoholu izopropylowego",
+      "amount": 0.25,
+      "measure": "szklanki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "lub spirytusu salicylowego",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "szklanki octu",
+      "amount": 0.25,
+      "measure": "szklanki ",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

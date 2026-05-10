@@ -1,0 +1,26 @@
+{
+  "main_title": "Kompot z rabarbaru z miodem",
+  "items": [
+    {
+      "name": "rabarbaru",
+      "amount": 500,
+      "measure": "gram",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miodu",
+      "amount": 4,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "cukier",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

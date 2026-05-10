@@ -1,0 +1,26 @@
+{
+  "main_title": "Płyny do podłóg odświerzający ",
+  "items": [
+    {
+      "name": "octu",
+      "amount": 0.5,
+      "measure": "szklanki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": " sody oczyszczonej",
+      "amount": 1,
+      "measure": "łyżka",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": " ulubionego olejku eterycznego",
+      "amount": 10,
+      "measure": "kropli",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

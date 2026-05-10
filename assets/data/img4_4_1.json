@@ -1,0 +1,19 @@
+{
+  "main_title": "Płyn do płukania ubrań Lawendowy",
+  "items": [
+    {
+      "name": "octu spirytusowego (10%)",
+      "amount": 1,
+      "measure": "litr",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "olejku eterycznego lawendowego",
+      "amount": 40,
+      "measure": "kropli",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

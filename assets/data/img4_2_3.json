@@ -1,0 +1,26 @@
+{
+  "main_title": "Proszek do prania białego",
+  "items": [
+    {
+      "name": "płatków mydlanych",
+      "amount": 2,
+      "measure": "szklanki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sody oczyszczonej zwykłej",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "kwasku cytrynowego",
+      "amount": 0.5,
+      "measure": "szklanki",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

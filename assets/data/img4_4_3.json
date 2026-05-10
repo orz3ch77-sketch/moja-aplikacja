@@ -1,0 +1,33 @@
+{
+  "main_title": "Płyny do płukania ubrań Delikatny",
+  "items": [
+    {
+      "name": " białego octu spirytusowego (5–10%)",
+      "amount": 0.5,
+      "measure": "szklanki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sody oczyszczonej",
+      "amount": 1.5,
+      "measure": "łyżeczki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "ulubionego olejku eterycznego",
+      "amount": 15,
+      "measure": "kropli",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "(np. lawendowy, cytrynowy, z drzewa herbacianego)",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

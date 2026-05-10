@@ -1,0 +1,40 @@
+{
+  "main_title": "Jarmuż, Ogórek i Cytryna",
+  "items": [
+    {
+      "name": "jarmużu",
+      "amount": 2,
+      "measure": "garście",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "ogórek szklarniowy",
+      "amount": 1,
+      "measure": "duży",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cytryna",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "selera naciowego",
+      "amount": 1,
+      "measure": "gałązka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "natka pietruszki.",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

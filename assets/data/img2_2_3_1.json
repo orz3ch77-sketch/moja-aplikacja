@@ -1,0 +1,96 @@
+{
+  "main_title": "Herbatka Nr I",
+  "items": [
+    {
+      "name": "tymianku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "lukrecji",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kardamonu",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cynamonu",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "goździków",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól himalajska",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "gotować około 3 min",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jabłka",
+      "amount": 0.5,
+      "measure": "sztuki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "żurawiny",
+      "amount": 2,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "cytryny",
+      "amount": 3,
+      "measure": "plastry",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "",
+      "amount": 7,
+      "measure": "daktyle",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

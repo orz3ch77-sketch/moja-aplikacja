@@ -1,0 +1,47 @@
+{
+  "main_title": "Kompot z gruszek z miodem na zimę",
+  "items": [
+    {
+      "name": "gruszek",
+      "amount": 3,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cukru",
+      "amount": 300,
+      "measure": "gram",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miód",
+      "amount": 1,
+      "measure": "łyżce",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cynamon",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "goździki",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cytryny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

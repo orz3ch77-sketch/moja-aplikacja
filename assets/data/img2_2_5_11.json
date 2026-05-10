@@ -1,0 +1,40 @@
+{
+  "main_title": "Jarmuż i seler",
+  "items": [
+    {
+      "name": "marchewki",
+      "amount": 2,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pomidor",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jarmużu",
+      "amount": 1,
+      "measure": "garść",
+      "base_unit": "g",
+      "base_value": 30
+    },
+    {
+      "name": "pietruszki",
+      "amount": 0.5,
+      "measure": "garści ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "duże łodygi selera",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

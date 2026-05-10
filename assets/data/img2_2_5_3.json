@@ -1,0 +1,33 @@
+{
+  "main_title": "Burak seler",
+  "items": [
+    {
+      "name": "buraka",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "selera naciowego",
+      "amount": 2,
+      "measure": "łodygi",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jabłka",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cytryny",
+      "amount": 0.5,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

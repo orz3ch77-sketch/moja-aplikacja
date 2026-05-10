@@ -1,0 +1,33 @@
+{
+  "main_title": "Owoce tropikalne",
+  "items": [
+    {
+      "name": "średniej wielkości pomarańcza",
+      "amount": 1,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "papaja",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "limonka",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mango",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

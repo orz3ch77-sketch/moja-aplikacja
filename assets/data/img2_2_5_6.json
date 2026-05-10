@@ -1,0 +1,33 @@
+{
+  "main_title": "Jabłkowy z dodatkiem cynamonu i imbiru",
+  "items": [
+    {
+      "name": "jabłka",
+      "amount": 2,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cynamon",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbir",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miodu (opcjonalnie)",
+      "amount": 1,
+      "measure": "łyżeczka",
+      "base_unit": "g",
+      "base_value": 5
+    }
+  ]
+}

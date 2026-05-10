@@ -1,0 +1,26 @@
+{
+  "main_title": "Płyn do naczyń z solą",
+  "items": [
+    {
+      "name": "soli drobnoziarnistej",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "octu",
+      "amount": 1,
+      "measure": "szklanka",
+      "base_unit": "g",
+      "base_value": 250
+    },
+    {
+      "name": "Sok z cytryn",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

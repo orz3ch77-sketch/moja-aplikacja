@@ -1,0 +1,33 @@
+{
+  "main_title": "Burak cytryna seler jabłko",
+  "items": [
+    {
+      "name": "burak",
+      "amount": 1,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "selera naciowego",
+      "amount": 2,
+      "measure": "łodygi",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jabłko",
+      "amount": 1,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cytryny",
+      "amount": 0.5,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

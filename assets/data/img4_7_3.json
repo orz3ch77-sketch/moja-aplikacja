@@ -1,0 +1,40 @@
+{
+  "main_title": "Odświeżacz z patyczkami",
+  "items": [
+    {
+      "name": "Szklana buteleczka z wąską szyjką",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Bambusowe patyczki do szaszłyków",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "wody destylowanej",
+      "amount": 100,
+      "measure": "ml",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "olejków eterycznych",
+      "amount": 30,
+      "measure": "kropli ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "wódki lub oleju bazowego (np. migdałowy)",
+      "amount": 1,
+      "measure": "łyżka",
+      "base_unit": "g",
+      "base_value": 15
+    }
+  ]
+}
