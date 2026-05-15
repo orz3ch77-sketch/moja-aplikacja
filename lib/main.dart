@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'my_clock/pages/my_clock_page.dart';
+
 late List<String> assetList;
 late List<String> dataList;
 
@@ -52,6 +54,7 @@ void main() async {
   await Hive.openBox('todo_links');
   await Hive.openBox('time_links');
   await Hive.openBox('favorite_links');
+  await Hive.openBox('my_clock_tasks');
   await Hive.openBox('shopping_lists');
   await Hive.openBox('shopping_lists_main');
 
@@ -348,13 +351,15 @@ class _LevelPageState extends State<LevelPage> {
   }
 
   bool get isLinksLevel {
-    return widget.base == 'img8_2' ||
-        widget.base == 'img8_3' ||
-        widget.base == 'img8_4';
+    return widget.base == 'img8_2' || widget.base == 'img8_4';
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.base == 'img8_3') {
+      return const MyClockPage();
+    }
+
     if (isLinksLevel) {
       final box = Hive.box(linksBoxNameFor(widget.base));
 
@@ -501,9 +506,15 @@ class _LevelPageState extends State<LevelPage> {
                     return;
                   }
 
-                  if (nextBase == 'img8_2' ||
-                      nextBase == 'img8_3' ||
-                      nextBase == 'img8_4') {
+                  if (nextBase == 'img8_3') {
+                    Navigator.push(
+                      context,
+                      slideRoute(const MyClockPage()),
+                    );
+                    return;
+                  }
+
+                  if (nextBase == 'img8_2' || nextBase == 'img8_4') {
                     Navigator.push(
                       context,
                       slideRoute(LevelPage(base: nextBase)),
@@ -607,6 +618,8 @@ class _GalleryPageState extends State<GalleryPage> {
   }
 
   Future<void> toggleFavorite() async {
+    final addedToFavorites = !isFavorite;
+
     if (isFavorite) {
       await removeFromBox('favorite_links');
     } else {
@@ -618,6 +631,14 @@ class _GalleryPageState extends State<GalleryPage> {
     setState(() {
       isFavorite = !isFavorite;
     });
+
+    if (addedToFavorites) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Dodano do: Moje menu do Ulubione'),
+        ),
+      );
+    }
   }
 
   void showPinDialog() {
@@ -629,6 +650,14 @@ class _GalleryPageState extends State<GalleryPage> {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const Text(
+              'Dodaj do',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () async {
                 await saveToBox('todo_links');
@@ -636,6 +665,11 @@ class _GalleryPageState extends State<GalleryPage> {
                 if (!mounted) return;
 
                 navigator.pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dodano do: Moje menu do zrobienia'),
+                  ),
+                );
               },
               child: const Text('Do zrobienia'),
             ),
@@ -647,8 +681,13 @@ class _GalleryPageState extends State<GalleryPage> {
                 if (!mounted) return;
 
                 navigator.pop();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Dodano do: Moje menu do zegara'),
+                  ),
+                );
               },
-              child: const Text('Inżynieria mojego czasu'),
+              child: const Text('Mój zegar'),
             ),
           ],
         ),

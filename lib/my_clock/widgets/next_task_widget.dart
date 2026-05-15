@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 
+import '../models/clock_task_model.dart';
+
 class NextTaskWidget extends StatelessWidget {
-  const NextTaskWidget({super.key});
+  const NextTaskWidget({
+    super.key,
+    required this.task,
+  });
+
+  final ClockTaskModel? task;
 
   @override
   Widget build(BuildContext context) {
+    final currentTask = task;
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(20),
@@ -43,8 +52,8 @@ class NextTaskWidget extends StatelessWidget {
                 ),
               ],
             ),
-            child: const Icon(
-              Icons.directions_walk_rounded,
+            child: Icon(
+              currentTask?.icon ?? Icons.notifications_none_rounded,
               color: Colors.white,
               size: 32,
             ),
@@ -56,8 +65,8 @@ class NextTaskWidget extends StatelessWidget {
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
+              children: [
+                const Text(
                   'Następne zadanie',
                   style: TextStyle(
                     color: Colors.white70,
@@ -65,10 +74,14 @@ class NextTaskWidget extends StatelessWidget {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                SizedBox(height: 6),
+                const SizedBox(height: 6),
                 Text(
-                  'Spacer za 25 min',
-                  style: TextStyle(
+                  currentTask == null
+                      ? 'Brak zadań z poziomu 8/2'
+                      : '${currentTask.title} o ${currentTask.time}',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,

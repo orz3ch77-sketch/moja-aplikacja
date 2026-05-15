@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "moja-aplikacja-orzech77",
     "public": "build/web",
     "ignore": [
       "firebase.json",

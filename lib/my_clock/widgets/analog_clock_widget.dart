@@ -2,7 +2,12 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 
 class AnalogClockWidget extends StatelessWidget {
-  const AnalogClockWidget({super.key});
+  const AnalogClockWidget({
+    super.key,
+    required this.now,
+  });
+
+  final DateTime now;
 
   @override
   Widget build(BuildContext context) {
@@ -47,54 +52,11 @@ class AnalogClockWidget extends StatelessWidget {
             ),
           ),
 
-          // ŚRODEK
-          Container(
-            width: 18,
-            height: 18,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0x88FFFFFF),
-                  blurRadius: 10,
-                ),
-              ],
-            ),
-          ),
-
-          // WSKAZÓWKA GODZINOWA
-          Positioned(
-            top: 110,
-            child: Container(
-              width: 6,
-              height: 90,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-          ),
-
-          // WSKAZÓWKA MINUTOWA
-          Transform.rotate(
-            angle: 0.8,
-            child: Container(
-              width: 4,
-              height: 120,
-              decoration: BoxDecoration(
-                color: const Color(0xFFB44CFF),
-                borderRadius: BorderRadius.circular(12),
-              ),
-            ),
-          ),
-
           // CYFRY
           ...List.generate(
             12,
             (index) {
-              final angle =
-                  (index * 30 - 90) * math.pi / 180;
+              final angle = (index * 30 - 90) * math.pi / 180;
 
               final radius = 140.0;
 
@@ -115,8 +77,77 @@ class AnalogClockWidget extends StatelessWidget {
               );
             },
           ),
+
+          CustomPaint(
+            size: const Size.square(340),
+            painter: _ClockHandsPainter(now: now),
+          ),
+
+          // ŚRODEK
+          Container(
+            width: 18,
+            height: 18,
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x88FFFFFF),
+                  blurRadius: 10,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
+  }
+}
+
+class _ClockHandsPainter extends CustomPainter {
+  const _ClockHandsPainter({required this.now});
+
+  final DateTime now;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final center = size.center(Offset.zero);
+    final hourAngle =
+        (((now.hour % 12) + now.minute / 60) / 12 * math.pi * 2) - math.pi / 2;
+    final minuteAngle =
+        ((now.minute + now.second / 60) / 60 * math.pi * 2) - math.pi / 2;
+    final secondAngle = (now.second / 60 * math.pi * 2) - math.pi / 2;
+
+    _drawHand(canvas, center, hourAngle, 82, 7, Colors.white);
+    _drawHand(canvas, center, minuteAngle, 118, 5, const Color(0xFFB44CFF));
+    _drawHand(canvas, center, secondAngle, 126, 2.5, const Color(0xFFFF4D5E));
+  }
+
+  void _drawHand(
+    Canvas canvas,
+    Offset center,
+    double angle,
+    double length,
+    double width,
+    Color color,
+  ) {
+    final end = Offset(
+      center.dx + math.cos(angle) * length,
+      center.dy + math.sin(angle) * length,
+    );
+
+    canvas.drawLine(
+      center,
+      end,
+      Paint()
+        ..color = color
+        ..strokeWidth = width
+        ..strokeCap = StrokeCap.round,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _ClockHandsPainter oldDelegate) {
+    return oldDelegate.now != now;
   }
 }

@@ -14,27 +14,31 @@ class TopBarWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // POWRÓT
-          Container(
-            width: 52,
-            height: 52,
-            decoration: BoxDecoration(
-              color: const Color(0x221F2A44),
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: const Color(0xFF5F6BFF),
-                width: 1.2,
-              ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x335F6BFF),
-                  blurRadius: 15,
+          InkWell(
+            borderRadius: BorderRadius.circular(18),
+            onTap: () => Navigator.maybePop(context),
+            child: Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: const Color(0x221F2A44),
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(
+                  color: const Color(0xFF5F6BFF),
+                  width: 1.2,
                 ),
-              ],
-            ),
-            child: const Icon(
-              Icons.arrow_back_ios_new_rounded,
-              color: Colors.white,
-              size: 22,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x335F6BFF),
+                    blurRadius: 15,
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.arrow_back_ios_new_rounded,
+                color: Colors.white,
+                size: 22,
+              ),
             ),
           ),
 
