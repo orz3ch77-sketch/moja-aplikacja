@@ -4,6 +4,8 @@ import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'my_clock/pages/my_clock_page.dart';
+import 'voice/voice_description_loader.dart';
+import 'voice/voice_speaker.dart';
 
 late List<String> assetList;
 late List<String> dataList;
@@ -570,6 +572,7 @@ class GalleryPage extends StatefulWidget {
 
 class _GalleryPageState extends State<GalleryPage> {
   late PageController controller;
+  final VoiceSpeaker voiceSpeaker = const VoiceSpeaker();
   int index = 0;
 
   bool chromeVisible = true;
@@ -844,8 +847,74 @@ class _GalleryPageState extends State<GalleryPage> {
     }
   }
 
+  Future<void> speakCurrentGalleryImage() async {
+    final imagePath = widget.images[index];
+
+    try {
+      final description = await VoiceDescriptionLoader.loadForGalleryImage(
+        imagePath,
+      );
+
+      if (!voiceSpeaker.isSupported) {
+        if (!mounted) return;
+
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Odczyt głosowy działa w przeglądarce.'),
+          ),
+        );
+        return;
+      }
+
+      await voiceSpeaker.speak(description.text);
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Czytam: ${description.title}')),
+      );
+    } on Object {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Brak opisu głosowego dla tego obrazu.'),
+        ),
+      );
+    }
+  }
+
+  Widget buildVoiceButton() {
+    final imagePath = widget.images[index];
+
+    return Positioned(
+      top: MediaQuery.of(context).padding.top + 12,
+      right: 14,
+      child: FutureBuilder<bool>(
+        future: VoiceDescriptionLoader.hasDescriptionForGalleryImage(imagePath),
+        builder: (context, snapshot) {
+          final hasVoice = snapshot.data ?? false;
+
+          return Material(
+            color: Colors.black.withValues(alpha: 0.46),
+            shape: const CircleBorder(),
+            child: IconButton(
+              tooltip: hasVoice ? 'Odczytaj opis' : 'Brak opisu głosowego',
+              icon: Icon(
+                hasVoice ? Icons.volume_up_rounded : Icons.volume_off_rounded,
+                color: hasVoice ? Colors.white : Colors.white38,
+              ),
+              onPressed: hasVoice ? speakCurrentGalleryImage : null,
+            ),
+          );
+        },
+      ),
+    );
+  }
+
   @override
   void dispose() {
+    voiceSpeaker.stop();
     controller.dispose();
     super.dispose();
   }
@@ -874,6 +943,7 @@ class _GalleryPageState extends State<GalleryPage> {
             },
           ),
           if (chromeVisible) buildToolsPanel(),
+          if (chromeVisible) buildVoiceButton(),
           if (chromeVisible)
             topBar(
               context: context,

@@ -1,0 +1,80 @@
+{
+  "title": "PROTOKÓŁ DZIENNY — wersja podstawowa",
+  "tasks": [
+    {
+      "time": "07:00",
+      "title": "Woda",
+      "amount": "300-500 ml",
+      "details": "300-500 ml ciepłej wody\nmożna dodać kilka kropel cytryny"
+    },
+    {
+      "time": "07:30",
+      "title": "Zeolit",
+      "amount": "1/4-1 płaska łyżeczka",
+      "details": "dzień 1-3: 1/4 łyżeczki\ndzień 4-7: 1/2 łyżeczki\nod 2 tygodnia: 1 płaska łyżeczka\npopić 300-500 ml wody\n\nOdstęp: minimum 60 minut do jedzenia, minimum 2-3 godziny do leków i minerałów."
+    },
+    {
+      "time": "08:30",
+      "title": "Śniadanie + spirulina",
+      "amount": "0,5-3 g",
+      "details": "dzień 1-3: 0,5-1 g\ndzień 4-7: 1-2 g\nod 2 tygodnia: 2-3 g dziennie\nmaksymalnie ostrożnie: 5 g dziennie"
+    },
+    {
+      "time": "10:30",
+      "title": "Błonnik",
+      "amount": "1/2-1 łyżeczka",
+      "details": "dzień 1-3: 1/2 łyżeczki\ndzień 4-7: 1 łyżeczka\nod 2 tygodnia: 1 łyżeczka 1-2 razy dziennie\npopić minimum 400 ml wody"
+    },
+    {
+      "time": "13:00",
+      "title": "Obiad",
+      "amount": "normalny posiłek",
+      "details": "Normalny posiłek. Dużo warzyw, kasze, zupy, kiszonki, dobre tłuszcze."
+    },
+    {
+      "time": "15:30",
+      "title": "Cynk",
+      "amount": "15 mg",
+      "details": "15 mg dziennie po jedzeniu\njeśli jest duży niedobór: 25-30 mg, ale nie długoterminowo bez kontroli\n\nNie brać razem z zeolitem, węglem i dużą ilością błonnika."
+    },
+    {
+      "time": "17:00",
+      "title": "Druga porcja błonnika",
+      "amount": "1 łyżeczka",
+      "details": "1 łyżeczka\ntylko jeśli jelita działają dobrze\njeśli są wzdęcia lub zaparcia — zmniejszyć"
+    },
+    {
+      "time": "19:00",
+      "title": "Kolacja",
+      "amount": "posiłek",
+      "details": "Kolacja"
+    },
+    {
+      "time": "21:00",
+      "title": "Magnez",
+      "amount": "200-300 mg",
+      "details": "200 mg wieczorem\njeśli dobrze tolerowany: 300 mg\nprzy biegunce zmniejszyć dawkę"
+    },
+    {
+      "time": "22:00",
+      "title": "Potas",
+      "amount": "z jedzenia",
+      "details": "Najlepiej z jedzenia, nie z tabletki:\n\npomidor / sok pomidorowy\nziemniaki\nbanan\nawokado\nwarzywa zielone\nzupa warzywna\n\nSuplement potasu tylko po konsultacji, szczególnie przy sercu, nerkach i lekach."
+    },
+    {
+      "time": "22:30",
+      "title": "Węgiel aktywny",
+      "day": "Wtorek i piątek",
+      "weekdays": [2, 5],
+      "amount": "1-2 kapsułki",
+      "details": "WĘGIEL AKTYWNY — tylko wybrane dni\n\nNie codziennie.\n\nWtorek i piątek — 22:30\n1-2 kapsułki węgla aktywnego\nminimum 3 godziny po kolacji\nminimum 3 godziny od leków, cynku, magnezu i spiruliny\n\nW dni z węglem nie bierz magnezu o 21:00 albo weź go wcześniej, np. 18:00."
+    },
+    {
+      "time": "06:00",
+      "title": "Plan tygodniowy",
+      "day": "Tydzień",
+      "amount": "tydzień 1-8",
+      "details": "Tydzień 1 — przygotowanie\n\nCel: jelita, woda, małe dawki.\n\nCodziennie:\nzeolit rano mała dawka\nspirulina mała dawka\nbłonnik 1 raz dziennie\nmagnez wieczorem\ncynk 15 mg\npotas z jedzenia\n\nBez węgla aktywnego w pierwszych 3-4 dniach.\n\nTydzień 2-4 — właściwe oczyszczanie\n\nPoniedziałek: zeolit + spirulina + błonnik + minerały\nWtorek: zeolit + spirulina + błonnik + węgiel wieczorem\nŚroda: zeolit + spirulina + błonnik + minerały\nCzwartek: zeolit + spirulina + błonnik + minerały\nPiątek: zeolit + spirulina + błonnik + węgiel wieczorem\nSobota: lżejszy dzień, bez zeolitu albo 1/2 dawki\nNiedziela: przerwa od zeolitu i węgla, tylko jedzenie, woda, magnez\n\nTydzień 5 — przerwa regeneracyjna\nbez zeolitu\nbez węgla\nspirulina 1-2 g\nbłonnik tylko jeśli potrzebny\nmagnez, cynk, potas z jedzenia\n\nTydzień 6-8 — druga runda\n\nPowtórzyć schemat z tygodni 2-4.\n\nNajprostszy rytm\n\n5 dni działania + 2 dni lżejsze\n\nOd poniedziałku do piątku:\nzeolit rano\nspirulina po śniadaniu\nbłonnik\ncynk\nmagnez\npotas z jedzenia\n\nSobota:\npół dawki albo przerwa\n\nNiedziela:\nprzerwa od sorbentów"
+    }
+  ]
+}

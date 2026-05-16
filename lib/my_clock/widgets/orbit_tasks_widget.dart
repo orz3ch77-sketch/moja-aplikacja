@@ -8,9 +8,11 @@ class OrbitTasksWidget extends StatelessWidget {
   const OrbitTasksWidget({
     super.key,
     required this.tasks,
+    this.onTaskTap,
   });
 
   final List<ClockTaskModel> tasks;
+  final ValueChanged<ClockTaskModel>? onTaskTap;
 
   Widget buildTask({
     required ClockTaskModel task,
@@ -32,53 +34,43 @@ class OrbitTasksWidget extends StatelessWidget {
         child: Semantics(
           label: '${task.time} ${task.title}',
           button: true,
-          child: Container(
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: const Color(0xEE071020),
-              border: Border.all(color: task.color, width: 2.4),
-              boxShadow: [
-                BoxShadow(
-                  color: task.color.withValues(alpha: 0.75),
-                  blurRadius: 24,
-                  spreadRadius: 1.5,
-                ),
-                BoxShadow(
-                  color: task.color.withValues(alpha: 0.25),
-                  blurRadius: 44,
-                  spreadRadius: 5,
-                ),
-              ],
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(7),
-              child: task.imagePath == null || task.imagePath!.isEmpty
-                  ? Icon(
-                      task.icon,
-                      color: task.color,
-                      size: 31,
-                      shadows: [
-                        Shadow(
-                          color: task.color.withValues(alpha: 0.95),
-                          blurRadius: 18,
-                        ),
-                      ],
-                    )
-                  : Image.asset(
-                      task.imagePath!,
-                      fit: BoxFit.contain,
-                      errorBuilder: (_, __, ___) => Icon(
-                        task.icon,
-                        color: task.color,
-                        size: 31,
-                        shadows: [
-                          Shadow(
-                            color: task.color.withValues(alpha: 0.95),
-                            blurRadius: 18,
-                          ),
-                        ],
-                      ),
+          onTap: onTaskTap == null ? null : () => onTaskTap!(task),
+          child: Material(
+            color: Colors.transparent,
+            shape: const CircleBorder(),
+            child: InkWell(
+              customBorder: const CircleBorder(),
+              onTap: onTaskTap == null ? null : () => onTaskTap!(task),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: const Color(0xEE071020),
+                  border: Border.all(color: task.color, width: 2.4),
+                  boxShadow: [
+                    BoxShadow(
+                      color: task.color.withValues(alpha: 0.75),
+                      blurRadius: 24,
+                      spreadRadius: 1.5,
                     ),
+                    BoxShadow(
+                      color: task.color.withValues(alpha: 0.25),
+                      blurRadius: 44,
+                      spreadRadius: 5,
+                    ),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(7),
+                  child: task.imagePath == null || task.imagePath!.isEmpty
+                      ? _FallbackIcon(task: task)
+                      : Image.asset(
+                          task.imagePath!,
+                          fit: BoxFit.contain,
+                          errorBuilder: (_, __, ___) =>
+                              _FallbackIcon(task: task),
+                        ),
+                ),
+              ),
             ),
           ),
         ),
@@ -108,7 +100,7 @@ class OrbitTasksWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final visibleTasks = tasks.take(9).toList();
+    final visibleTasks = tasks.take(12).toList();
     final taskAngles = [
       for (var index = 0; index < visibleTasks.length; index++)
         _angleForTask(visibleTasks[index], index, visibleTasks.length),
@@ -134,6 +126,29 @@ class OrbitTasksWidget extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+class _FallbackIcon extends StatelessWidget {
+  const _FallbackIcon({
+    required this.task,
+  });
+
+  final ClockTaskModel task;
+
+  @override
+  Widget build(BuildContext context) {
+    return Icon(
+      task.icon,
+      color: task.color,
+      size: 31,
+      shadows: [
+        Shadow(
+          color: task.color.withValues(alpha: 0.95),
+          blurRadius: 18,
+        ),
+      ],
     );
   }
 }

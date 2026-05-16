@@ -6,6 +6,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import '../mock/mock_tasks.dart';
 import '../models/clock_task_model.dart';
 import '../services/clock_level_metadata.dart';
+import '../services/clock_protocol_loader.dart';
 import '../services/next_task_service.dart';
 import '../widgets/analog_clock_widget.dart';
 import '../widgets/bottom_buttons_widget.dart';
@@ -22,6 +23,7 @@ class MyClockPage extends StatefulWidget {
 
 class _MyClockPageState extends State<MyClockPage> {
   DateTime _now = DateTime.now();
+  bool _weekView = false;
   Timer? _clockTimer;
 
   @override
@@ -53,7 +55,11 @@ class _MyClockPageState extends State<MyClockPage> {
           return ValueListenableBuilder(
             valueListenable: myTasksBox.listenable(),
             builder: (context, Box myTasksBox, _) {
-              final myTasks = _myTasksFromBox(myTasksBox.values.toList());
+              final myTasks = _myTasksFromBox(
+                myTasksBox.values.toList(),
+                now: _now,
+                includeWholeWeek: _weekView,
+              );
               final visibleTasks = myTasks.isEmpty ? mockTasks : myTasks;
               final nextTask = NextTaskService.getNextTask(
                 visibleTasks,
@@ -90,16 +96,16 @@ class _MyClockPageState extends State<MyClockPage> {
                                   : 0.90);
                       final heightLimit = constraints.maxHeight *
                           (veryCompact
-                              ? 0.30
+                              ? 0.34
                               : compact
-                                  ? 0.36
-                                  : 0.46);
+                                  ? 0.40
+                                  : 0.48);
                       final rawClockSize =
                           widthLimit < heightLimit ? widthLimit : heightLimit;
                       final limitedClockSize = rawClockSize < mobileWidthLimit
                           ? rawClockSize
                           : mobileWidthLimit;
-                      final clockSize = limitedClockSize.clamp(200.0, 460.0);
+                      final clockSize = limitedClockSize.clamp(220.0, 470.0);
 
                       return SingleChildScrollView(
                         child: ConstrainedBox(
@@ -108,52 +114,56 @@ class _MyClockPageState extends State<MyClockPage> {
                           ),
                           child: Column(
                             children: [
-                              const TopBarWidget(),
+                              TopBarWidget(
+                                weekView: _weekView,
+                                onWeekViewChanged: (value) {
+                                  setState(() => _weekView = value);
+                                },
+                              ),
                               Padding(
-                                padding: EdgeInsets.only(
-                                  top: compact ? 4 : 8,
+                                padding: EdgeInsets.fromLTRB(
+                                  20,
+                                  veryCompact ? 0 : 2,
+                                  20,
+                                  0,
                                 ),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      _weekdayName(_now.weekday).toUpperCase(),
-                                      style: TextStyle(
-                                        color: const Color(0xFFB44CFF),
-                                        fontSize: veryCompact
-                                            ? 16
-                                            : compact
-                                                ? 18
-                                                : 22,
-                                        fontWeight: FontWeight.bold,
-                                        letterSpacing: 2,
-                                      ),
-                                    ),
-                                    SizedBox(height: veryCompact ? 2 : 6),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 20,
-                                      ),
-                                      child: FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Text(
-                                          '${_now.day} ${_monthName(_now.month)} ${_now.year}',
-                                          style: TextStyle(
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text.rich(
+                                    TextSpan(
+                                      children: [
+                                        TextSpan(
+                                          text: _weekdayName(_now.weekday)
+                                              .toUpperCase(),
+                                          style: const TextStyle(
+                                            color: Color(0xFFB44CFF),
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.4,
+                                          ),
+                                        ),
+                                        const TextSpan(text: '  '),
+                                        TextSpan(
+                                          text:
+                                              '${_now.day} ${_monthName(_now.month)} ${_now.year}',
+                                          style: const TextStyle(
                                             color: Colors.white,
-                                            fontSize: veryCompact
-                                                ? 28
-                                                : compact
-                                                    ? 34
-                                                    : 42,
                                             fontWeight: FontWeight.bold,
                                           ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                  ],
+                                    style: TextStyle(
+                                      fontSize: veryCompact
+                                          ? 25
+                                          : compact
+                                              ? 29
+                                              : 34,
+                                    ),
+                                  ),
                                 ),
                               ),
                               Transform.translate(
-                                offset: Offset(0, veryCompact ? -18 : -10),
+                                offset: Offset(0, veryCompact ? -8 : -4),
                                 child: Center(
                                   child: SizedBox(
                                     width: clockSize.toDouble(),
@@ -168,6 +178,7 @@ class _MyClockPageState extends State<MyClockPage> {
                                           children: [
                                             OrbitTasksWidget(
                                               tasks: visibleTasks,
+                                              onTaskTap: _showTaskDetails,
                                             ),
                                             AnalogClockWidget(now: _now),
                                           ],
@@ -280,6 +291,90 @@ class _MyClockPageState extends State<MyClockPage> {
     );
   }
 
+  Future<void> _addProtocolFromSource(Map<String, dynamic> source) async {
+    final imagePath = source['imagePath'] as String? ?? '';
+    final clockIconPath = clockIconPathForImagePath(imagePath);
+    final protocolPath =
+        ClockProtocolLoader.protocolAssetPathForImagePath(imagePath);
+    late final List<Map<String, dynamic>> protocolTasks;
+
+    try {
+      protocolTasks = await ClockProtocolLoader.loadTasksForImagePath(
+        imagePath,
+      );
+    } on Object catch (_) {
+      if (!mounted) {
+        return;
+      }
+
+      await showDialog<void>(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: const Text('Brak pliku kuracji'),
+          content: Text('Zegar nie znalazł pliku:\n$protocolPath'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text('Zamknij'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: const Text('Dodaj do zegara kurację'),
+        content: const Text(
+          'Dodam cały harmonogram do Moich zadań. Widok Dzień pokaże zadania na dziś, a widok Tydzień pokaże cały protokół. To plan organizacyjny, nie porada medyczna.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Anuluj'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Dodaj'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed != true) {
+      return;
+    }
+
+    final box = Hive.box('my_clock_tasks');
+    final oldProtocolKeys = <dynamic>[];
+
+    for (final key in box.keys) {
+      final value = box.get(key);
+      if (value is Map && value['source'] == protocolPath) {
+        oldProtocolKeys.add(key);
+      }
+    }
+
+    for (final key in oldProtocolKeys) {
+      await box.delete(key);
+    }
+
+    for (final task in protocolTasks) {
+      await box.add({
+        ...task,
+        'imagePath': imagePath,
+        'clockIconPath': clockIconPath,
+        'galleryImages': source['galleryImages'],
+      });
+    }
+
+    if (mounted) {
+      setState(() => _weekView = true);
+    }
+  }
+
   Future<void> _showCreateCustomTaskDialog() async {
     final titleController = TextEditingController();
     final dayController = TextEditingController(text: 'Dziś');
@@ -364,11 +459,27 @@ class _MyClockPageState extends State<MyClockPage> {
           : Column(
               children: [
                 for (var index = 0; index < items.length; index++)
-                  _AddedGalleryTile(
-                    item: Map<String, dynamic>.from(items[index]),
-                    onCreateTask: () => _showCreateTaskFromAddedDialog(
-                      Map<String, dynamic>.from(items[index]),
+                  FutureBuilder<bool>(
+                    future: ClockProtocolLoader.hasProtocolForImagePath(
+                      (Map<String, dynamic>.from(items[index])['imagePath']
+                              as String?) ??
+                          '',
                     ),
+                    builder: (context, snapshot) {
+                      final item = Map<String, dynamic>.from(items[index]);
+                      final hasProtocol = snapshot.data ?? false;
+
+                      return _AddedGalleryTile(
+                        item: item,
+                        hasProtocol: hasProtocol,
+                        onCreateTask: () => _showCreateTaskFromAddedDialog(
+                          item,
+                        ),
+                        onCreateProtocol: hasProtocol
+                            ? () => _addProtocolFromSource(item)
+                            : null,
+                      );
+                    },
                   ),
               ],
             ),
@@ -446,7 +557,11 @@ class _MyClockPageState extends State<MyClockPage> {
     if (!mounted) return;
   }
 
-  List<ClockTaskModel> _myTasksFromBox(List<dynamic> values) {
+  List<ClockTaskModel> _myTasksFromBox(
+    List<dynamic> values, {
+    required DateTime now,
+    required bool includeWholeWeek,
+  }) {
     final tasks = <ClockTaskModel>[];
 
     for (var index = 0; index < values.length; index++) {
@@ -456,6 +571,10 @@ class _MyClockPageState extends State<MyClockPage> {
       }
 
       final item = Map<String, dynamic>.from(raw);
+      if (!includeWholeWeek && !_isTaskVisibleToday(item, now)) {
+        continue;
+      }
+
       tasks.add(
         ClockTaskModel(
           number: index + 1,
@@ -466,11 +585,46 @@ class _MyClockPageState extends State<MyClockPage> {
           color: _colorForIndex(index),
           imagePath:
               item['clockIconPath'] as String? ?? item['imagePath'] as String?,
+          details: item['details'] as String?,
         ),
       );
     }
 
     return tasks;
+  }
+
+  bool _isTaskVisibleToday(Map<String, dynamic> item, DateTime now) {
+    final weekdays = item['weekdays'];
+    if (weekdays is! List) {
+      return true;
+    }
+
+    return weekdays
+        .map((value) => int.tryParse('$value'))
+        .whereType<int>()
+        .contains(now.weekday);
+  }
+
+  Future<void> _showTaskDetails(ClockTaskModel task) async {
+    final details = task.details?.trim();
+
+    await showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('${task.time} — ${task.title}'),
+        content: SingleChildScrollView(
+          child: Text(
+            details == null || details.isEmpty ? task.title : details,
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Zamknij'),
+          ),
+        ],
+      ),
+    );
   }
 
   Color _colorForIndex(int index) {
@@ -668,11 +822,13 @@ class _MyTaskTile extends StatelessWidget {
     final title = _taskTitleFromItem(item);
     final day = item['day'] as String? ?? 'Dziś';
     final time = item['time'] as String? ?? '08:00';
+    final amount = (item['amount'] as String? ?? '').trim();
+    final subtitle = amount.isEmpty ? '$day • $time' : '$day • $time • $amount';
 
     return _ClockTileShell(
       leading: _LevelIcon(imagePath: imagePath),
       title: title,
-      subtitle: '$day • $time',
+      subtitle: subtitle,
       trailing: IconButton(
         icon: const Icon(Icons.delete_outline, color: Colors.white70),
         onPressed: onDelete,
@@ -684,11 +840,15 @@ class _MyTaskTile extends StatelessWidget {
 class _AddedGalleryTile extends StatelessWidget {
   const _AddedGalleryTile({
     required this.item,
+    required this.hasProtocol,
     required this.onCreateTask,
+    required this.onCreateProtocol,
   });
 
   final Map<String, dynamic> item;
+  final bool hasProtocol;
   final VoidCallback onCreateTask;
+  final VoidCallback? onCreateProtocol;
 
   @override
   Widget build(BuildContext context) {
@@ -697,10 +857,28 @@ class _AddedGalleryTile extends StatelessWidget {
     return _ClockTileShell(
       leading: _LevelIcon(imagePath: levelImagePathForImagePath(imagePath)),
       title: clockTitleForImagePath(imagePath),
-      subtitle: 'Wybierz i utwórz Moje zadanie',
-      trailing: IconButton(
-        icon: const Icon(Icons.add_circle_outline, color: Color(0xFF00D0FF)),
-        onPressed: onCreateTask,
+      subtitle: hasProtocol
+          ? 'Możesz dodać zadanie albo kurację'
+          : 'Brak pliku kuracji dla tego poziomu',
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          IconButton(
+            tooltip: 'Dodaj zadanie',
+            icon: const Icon(
+              Icons.add_circle_outline,
+              color: Color(0xFF00D0FF),
+            ),
+            onPressed: onCreateTask,
+          ),
+          IconButton(
+            tooltip: 'Dodaj kurację',
+            icon: const Icon(Icons.add_alarm_rounded),
+            color: const Color(0xFFB44CFF),
+            disabledColor: Colors.white24,
+            onPressed: onCreateProtocol,
+          ),
+        ],
       ),
       onTap: onCreateTask,
     );

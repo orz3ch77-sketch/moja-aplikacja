@@ -1,0 +1,74 @@
+{
+  "title": "PROTOKÓŁ DZIENNY z ZIOŁAMI",
+  "tasks": [
+    {
+      "time": "07:00",
+      "title": "Nawodnienie",
+      "amount": "400-600 ml",
+      "details": "400-600 ml ciepłej wody\nmożna dodać sok z 1-2 plasterków Cytryna"
+    },
+    {
+      "time": "07:30",
+      "title": "Zeolit",
+      "amount": "1-3 g",
+      "details": "Zeolit\n\nTydzień 1\ndni 1-3 -> około 1 g\ndni 4-7 -> około 2 g\nOd tygodnia 2\nokoło 3 g rano\n\nPopić:\nminimum 400-500 ml wody\n\nOdstęp:\nminimum 3 godziny do minerałów i leków"
+    },
+    {
+      "time": "08:30",
+      "title": "Zioła",
+      "amount": "1 filiżanka",
+      "details": "Naprzemiennie:\n\nPokrzywa zwyczajna - 1 filiżanka\nlub\nCzystek kreteński - 1 filiżanka"
+    },
+    {
+      "time": "11:00",
+      "title": "Pierwszy posiłek",
+      "amount": "spirulina 0,5-3 g, błonnik 5-10 g",
+      "details": "Normalny większy posiłek:\nwarzywa\nkasza\nzupa\ndobre tłuszcze\nkiszonki\n\nProdukty bogate w potas:\nPomidor\nAwokado\nZiemniak\n\nDo posiłku:\nSpirulina\n\nSpirulina:\ndni 1-3 -> 0,5-1 g\ndni 4-7 -> 1-2 g\npóźniej -> 2-3 g\n\nBłonnik:\ntydzień 1 -> około 5 g\npóźniej -> 5-10 g\n\nPopić:\nminimum 400 ml wody\n\nDodatkowo:\nSiemię lniane - 1 łyżka\nPestki dyni - 1 łyżka\nKolendra siewna - 1-2 łyżeczki świeżej"
+    },
+    {
+      "time": "14:30",
+      "title": "Mniszek lekarski",
+      "amount": "1 filiżanka",
+      "details": "Mniszek lekarski\n\n1 filiżanka naparu"
+    },
+    {
+      "time": "17:00",
+      "title": "Drugi posiłek",
+      "amount": "lekki posiłek",
+      "details": "Lżejszy posiłek:\nwarzywa\nzupa\nkiszonki\nlekkie białko\ndobre tłuszcze"
+    },
+    {
+      "time": "18:00",
+      "title": "Cynk",
+      "amount": "około 15 mg",
+      "details": "Cynk\n\nokoło 15 mg\n\nNie łączyć blisko:\nzeolitu\nwęgla aktywnego"
+    },
+    {
+      "time": "20:30",
+      "title": "Magnez",
+      "amount": "około 200-300 mg",
+      "details": "Magnez\n\nokoło 200-300 mg\n\nPrzy biegunce:\nzmniejszyć ilość"
+    },
+    {
+      "time": "21:00",
+      "title": "Potas z jedzenia",
+      "amount": "z jedzenia",
+      "details": "Najlepiej:\nsok pomidorowy\nbanan\nzielone warzywa\nziemniaki\nawokado"
+    },
+    {
+      "time": "22:00",
+      "title": "Węgiel aktywny",
+      "amount": "1-2 kapsułki",
+      "day": "Wtorek i piątek",
+      "weekdays": [2, 5],
+      "details": "Węgiel aktywny\n\n1-2 kapsułki\n\nMinimum:\n3 godziny od minerałów i suplementów\n\nW dni z węglem:\nmagnez lepiej wziąć wcześniej około 18:00-19:00"
+    },
+    {
+      "time": "06:00",
+      "title": "Plan tygodniowy",
+      "amount": "tydzień 1-8",
+      "day": "Tydzień",
+      "details": "Tydzień 1\n\nMałe ilości:\nzeolit\nspirulina\nbłonnik\n\nBez węgla przez pierwsze dni.\n\nTydzień 2-4\n\nRegularny rytm:\nzeolit rano\nspirulina do pierwszego posiłku\nbłonnik\ncynk\nmagnez\nzioła\nwęgiel 2 razy tygodniowo\n\nTydzień 5\n\nPrzerwa regeneracyjna:\nbez zeolitu\nbez węgla\nmniej spiruliny\ndużo wody\nlekkie jedzenie\n\nTydzień 6-8\n\nPowtórzenie schematu tygodni 2-4."
+    }
+  ]
+}

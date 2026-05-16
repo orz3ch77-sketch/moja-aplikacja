@@ -8,6 +8,7 @@ class ClockTaskModel {
   final IconData icon;
   final Color color;
   final String? imagePath;
+  final String? details;
 
   const ClockTaskModel({
     required this.number,
@@ -17,5 +18,6 @@ class ClockTaskModel {
     required this.icon,
     required this.color,
     this.imagePath,
+    this.details,
   });
 }

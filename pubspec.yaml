@@ -25,3 +25,5 @@ flutter:
   assets:
     - assets/
     - assets/data/
+    - assets/clock_protocols/
+    - assets/voice_descriptions/

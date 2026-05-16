@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class TopBarWidget extends StatelessWidget {
-  const TopBarWidget({super.key});
+  const TopBarWidget({
+    super.key,
+    required this.weekView,
+    required this.onWeekViewChanged,
+  });
+
+  final bool weekView;
+  final ValueChanged<bool> onWeekViewChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -56,26 +63,34 @@ class TopBarWidget extends StatelessWidget {
             child: Row(
               children: [
                 // DZIEŃ
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 22,
-                    vertical: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    gradient: const LinearGradient(
-                      colors: [
-                        Color(0xFF7A5CFF),
-                        Color(0xFFB44CFF),
-                      ],
+                InkWell(
+                  borderRadius: BorderRadius.circular(18),
+                  onTap: () => onWeekViewChanged(false),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 22,
+                      vertical: 12,
                     ),
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  child: const Text(
-                    'Dzień',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+                    decoration: BoxDecoration(
+                      gradient: weekView
+                          ? null
+                          : const LinearGradient(
+                              colors: [
+                                Color(0xFF7A5CFF),
+                                Color(0xFFB44CFF),
+                              ],
+                            ),
+                      color: weekView ? const Color(0x33141A2E) : null,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: Text(
+                      'Dzień',
+                      style: TextStyle(
+                        color: weekView ? Colors.white70 : Colors.white,
+                        fontWeight:
+                            weekView ? FontWeight.w600 : FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
@@ -83,21 +98,34 @@ class TopBarWidget extends StatelessWidget {
                 const SizedBox(width: 8),
 
                 // TYDZIEŃ
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 22,
-                    vertical: 12,
-                  ),
-                  decoration: BoxDecoration(
-                    color: const Color(0x33141A2E),
-                    borderRadius: BorderRadius.circular(18),
-                  ),
-                  child: const Text(
-                    'Tydzień',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
+                InkWell(
+                  borderRadius: BorderRadius.circular(18),
+                  onTap: () => onWeekViewChanged(true),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 22,
+                      vertical: 12,
+                    ),
+                    decoration: BoxDecoration(
+                      gradient: weekView
+                          ? const LinearGradient(
+                              colors: [
+                                Color(0xFF7A5CFF),
+                                Color(0xFFB44CFF),
+                              ],
+                            )
+                          : null,
+                      color: weekView ? null : const Color(0x33141A2E),
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: Text(
+                      'Tydzień',
+                      style: TextStyle(
+                        color: weekView ? Colors.white : Colors.white70,
+                        fontWeight:
+                            weekView ? FontWeight.bold : FontWeight.w600,
+                        fontSize: 16,
+                      ),
                     ),
                   ),
                 ),
