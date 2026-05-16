@@ -29,7 +29,17 @@ class VoiceDescriptionLoader {
 
   static Future<bool> hasDescriptionForGalleryImage(String galleryImage) async {
     final paths = await _loadAssetPaths();
-    return paths.contains(voiceAssetPathForGalleryImage(galleryImage));
+    final assetPath = voiceAssetPathForGalleryImage(galleryImage);
+    if (!paths.contains(assetPath)) {
+      return false;
+    }
+
+    try {
+      final description = await loadForGalleryImage(galleryImage);
+      return description.text.trim().isNotEmpty;
+    } on Object {
+      return false;
+    }
   }
 
   static Future<VoiceDescription> loadForGalleryImage(

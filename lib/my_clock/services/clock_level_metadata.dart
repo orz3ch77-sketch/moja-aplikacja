@@ -315,6 +315,5 @@ String levelImagePathForImagePath(String path) {
 }
 
 String clockIconPathForImagePath(String path) {
-  final base = clockLevelBaseFromImagePath(path);
-  return 'assets/clock_icons/$base.webp';
+  return levelImagePathForImagePath(path);
 }

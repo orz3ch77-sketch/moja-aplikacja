@@ -583,14 +583,24 @@ class _MyClockPageState extends State<MyClockPage> {
           time: item['time'] as String? ?? '08:00',
           icon: clockIconForImagePath(item['imagePath'] as String? ?? ''),
           color: _colorForIndex(index),
-          imagePath:
-              item['clockIconPath'] as String? ?? item['imagePath'] as String?,
+          imagePath: _taskImagePath(item),
           details: item['details'] as String?,
         ),
       );
     }
 
     return tasks;
+  }
+
+  String _taskImagePath(Map<String, dynamic> item) {
+    final imagePath = item['imagePath'] as String? ?? '';
+    final clockIconPath = item['clockIconPath'] as String?;
+
+    if (clockIconPath == null || clockIconPath.contains('/clock_icons/')) {
+      return clockIconPathForImagePath(imagePath);
+    }
+
+    return clockIconPath;
   }
 
   bool _isTaskVisibleToday(Map<String, dynamic> item, DateTime now) {
@@ -817,8 +827,7 @@ class _MyTaskTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imagePath =
-        item['clockIconPath'] as String? ?? item['imagePath'] as String? ?? '';
+    final imagePath = _taskTileImagePath(item);
     final title = _taskTitleFromItem(item);
     final day = item['day'] as String? ?? 'Dziś';
     final time = item['time'] as String? ?? '08:00';
@@ -835,6 +844,17 @@ class _MyTaskTile extends StatelessWidget {
       ),
     );
   }
+}
+
+String _taskTileImagePath(Map<String, dynamic> item) {
+  final imagePath = item['imagePath'] as String? ?? '';
+  final clockIconPath = item['clockIconPath'] as String?;
+
+  if (clockIconPath == null || clockIconPath.contains('/clock_icons/')) {
+    return clockIconPathForImagePath(imagePath);
+  }
+
+  return clockIconPath;
 }
 
 class _AddedGalleryTile extends StatelessWidget {
