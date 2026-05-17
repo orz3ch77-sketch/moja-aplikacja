@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../mock/mock_tasks.dart';
 import '../models/clock_task_model.dart';
 import '../services/clock_level_metadata.dart';
 import '../services/clock_protocol_loader.dart';
@@ -60,9 +59,8 @@ class _MyClockPageState extends State<MyClockPage> {
                 now: _now,
                 includeWholeWeek: _weekView,
               );
-              final visibleTasks = myTasks.isEmpty ? mockTasks : myTasks;
               final nextTask = NextTaskService.getNextTask(
-                visibleTasks,
+                myTasks,
                 now: _now,
               );
 
@@ -177,7 +175,7 @@ class _MyClockPageState extends State<MyClockPage> {
                                           alignment: Alignment.center,
                                           children: [
                                             OrbitTasksWidget(
-                                              tasks: visibleTasks,
+                                              tasks: myTasks,
                                               onTaskTap: _showTaskDetails,
                                             ),
                                             AnalogClockWidget(now: _now),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'chakra/chakra_test_page.dart';
 import 'my_clock/pages/my_clock_page.dart';
 import 'voice/voice_description_loader.dart';
 import 'voice/voice_speaker.dart';
@@ -500,6 +501,14 @@ class _LevelPageState extends State<LevelPage> {
                 onTap: () {
                   final nextBase = assetBaseName(level);
 
+                  if (nextBase == 'img1_1_3_2') {
+                    Navigator.push(
+                      context,
+                      slideRoute(const ChakraTestPage()),
+                    );
+                    return;
+                  }
+
                   if (nextBase == 'img8_1') {
                     Navigator.push(
                       context,
@@ -578,6 +587,7 @@ class _GalleryPageState extends State<GalleryPage> {
   bool chromeVisible = true;
   bool toolsOpen = false;
   bool isFavorite = false;
+  bool isVoicePlaying = false;
 
   @override
   void initState() {
@@ -821,6 +831,7 @@ class _GalleryPageState extends State<GalleryPage> {
 
   void next() {
     if (index < widget.images.length - 1) {
+      stopVoice();
       index++;
 
       controller.animateToPage(
@@ -835,6 +846,7 @@ class _GalleryPageState extends State<GalleryPage> {
 
   void prev() {
     if (index > 0) {
+      stopVoice();
       index--;
 
       controller.animateToPage(
@@ -847,7 +859,19 @@ class _GalleryPageState extends State<GalleryPage> {
     }
   }
 
+  void stopVoice() {
+    voiceSpeaker.stop();
+    if (mounted && isVoicePlaying) {
+      setState(() => isVoicePlaying = false);
+    }
+  }
+
   Future<void> speakCurrentGalleryImage() async {
+    if (isVoicePlaying || voiceSpeaker.isSpeaking) {
+      stopVoice();
+      return;
+    }
+
     final imagePath = widget.images[index];
 
     try {
@@ -869,6 +893,8 @@ class _GalleryPageState extends State<GalleryPage> {
       await voiceSpeaker.speak(description.text);
 
       if (!mounted) return;
+
+      setState(() => isVoicePlaying = true);
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Czytam: ${description.title}')),
@@ -901,7 +927,11 @@ class _GalleryPageState extends State<GalleryPage> {
             child: IconButton(
               tooltip: hasVoice ? 'Odczytaj opis' : 'Brak opisu głosowego',
               icon: Icon(
-                hasVoice ? Icons.volume_up_rounded : Icons.volume_off_rounded,
+                isVoicePlaying
+                    ? Icons.stop_circle_outlined
+                    : hasVoice
+                        ? Icons.volume_up_rounded
+                        : Icons.volume_off_rounded,
                 color: hasVoice ? Colors.white : Colors.white38,
               ),
               onPressed: hasVoice ? speakCurrentGalleryImage : null,
@@ -928,16 +958,26 @@ class _GalleryPageState extends State<GalleryPage> {
           PageView.builder(
             controller: controller,
             itemCount: widget.images.length,
-            onPageChanged: (i) => setState(() => index = i),
+            onPageChanged: (i) {
+              stopVoice();
+              setState(() => index = i);
+            },
             itemBuilder: (_, i) {
               return GestureDetector(
                 behavior: HitTestBehavior.opaque,
                 onTap: hideGalleryBars,
                 onDoubleTap: showGalleryBars,
                 child: InteractiveViewer(
-                  minScale: 0.8,
-                  maxScale: 5,
-                  child: Center(child: Image.asset(widget.images[i])),
+                  boundaryMargin: const EdgeInsets.all(120),
+                  clipBehavior: Clip.none,
+                  minScale: 1,
+                  maxScale: 6,
+                  child: SizedBox.expand(
+                    child: Image.asset(
+                      widget.images[i],
+                      fit: BoxFit.contain,
+                    ),
+                  ),
                 ),
               );
             },

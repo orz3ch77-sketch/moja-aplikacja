@@ -5,6 +5,8 @@ class VoiceSpeaker {
 
   bool get isSupported => html.window.speechSynthesis != null;
 
+  bool get isSpeaking => html.window.speechSynthesis?.speaking ?? false;
+
   Future<void> speak(String text) async {
     stop();
 
