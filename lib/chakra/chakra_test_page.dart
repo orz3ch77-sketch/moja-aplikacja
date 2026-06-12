@@ -72,6 +72,8 @@ class _ChakraTestPageState extends State<ChakraTestPage> {
                         children: [
                           _ChakraIntro(chakra: chakra),
                           const SizedBox(height: 12),
+                          const _ProblemsHeader(),
+                          const SizedBox(height: 8),
                           ...List.generate(chakra.problems.length, (index) {
                             final key = chakra.problemKey(index);
                             final selected = _selectedProblems.contains(key);
@@ -125,8 +127,8 @@ class _ChakraTestPageState extends State<ChakraTestPage> {
   void _showResults(ChakraTest test) {
     final results = test.chakras
         .map((chakra) => ChakraResult.from(chakra, _selectedProblems))
-        .where((result) => result.score > 0)
-        .toList()
+        .toList();
+    final focusedResults = results.where((result) => result.score > 0).toList()
       ..sort((a, b) => b.percent.compareTo(a.percent));
 
     showModalBottomSheet<void>(
@@ -168,18 +170,17 @@ class _ChakraTestPageState extends State<ChakraTestPage> {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  results.isEmpty
-                      ? 'Nie zaznaczono problemów. Test jest gotowy do wypełnienia.'
-                      : 'Najwyżej są czakry, przy których zaznaczono najwięcej problemów.',
+                  _selectedProblems.isEmpty
+                      ? 'Nie zaznaczono objawów. Wszystkie czakry są pokazane jako harmonijne.'
+                      : 'Poniżej jest opis każdej czakry: harmonia albo możliwe osłabienie/zablokowanie.',
                   style: const TextStyle(color: Colors.white70, fontSize: 14),
                 ),
                 const SizedBox(height: 16),
-                if (results.isEmpty)
-                  const _EmptyResult()
-                else
-                  ...results.take(4).map((result) {
-                    return _ResultCard(result: result);
-                  }),
+                ...results.map((result) => _ResultCard(result: result)),
+                _SummaryCard(
+                  results: results,
+                  focusedResults: focusedResults,
+                ),
               ],
             );
           },
@@ -334,6 +335,15 @@ class _ChakraIntro extends StatelessWidget {
             style: const TextStyle(color: Colors.white70, fontSize: 13),
           ),
           const SizedBox(height: 12),
+          const Text(
+            'Odpowiedzialna za:',
+            style: TextStyle(
+              color: Color(0xFFB388FF),
+              fontSize: 14,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 10),
           Wrap(
             spacing: 7,
             runSpacing: 7,
@@ -342,6 +352,22 @@ class _ChakraIntro extends StatelessWidget {
             }).toList(),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ProblemsHeader extends StatelessWidget {
+  const _ProblemsHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text(
+      'Zaznacz objawy:',
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 18,
+        fontWeight: FontWeight.w800,
       ),
     );
   }
@@ -438,6 +464,7 @@ class _ResultCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final chakra = result.chakra;
+    final isBalanced = result.score == 0;
 
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
@@ -474,7 +501,7 @@ class _ResultCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            '${chakra.sanskrit} • możliwe osłabienie: ${result.percentText}',
+            '${chakra.sanskrit} • ${result.statusTitle}',
             style: const TextStyle(color: Colors.white70, fontSize: 13),
           ),
           const SizedBox(height: 12),
@@ -488,6 +515,30 @@ class _ResultCard extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
+          Text(
+            result.description,
+            style: const TextStyle(
+                color: Colors.white, fontSize: 15, height: 1.35),
+          ),
+          const SizedBox(height: 12),
+          if (!isBalanced) ...[
+            const Text(
+              'Zaznaczone sygnały',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 7,
+              runSpacing: 7,
+              children: result.selectedProblemTexts.map((item) {
+                return _SoftChip(text: item);
+              }).toList(),
+            ),
+            const SizedBox(height: 12),
+          ],
           const Text(
             'Propozycje wsparcia',
             style: TextStyle(
@@ -501,6 +552,94 @@ class _ResultCard extends StatelessWidget {
             runSpacing: 7,
             children: chakra.support.take(7).map((item) {
               return _SoftChip(text: item);
+            }).toList(),
+          ),
+          if (!isBalanced && chakra.bach.isNotEmpty) ...[
+            const SizedBox(height: 12),
+            const Text(
+              'Krople Dr. Bacha',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              'Dobór emocjonalny, do użycia zgodnie z etykietą produktu lub po konsultacji ze specjalistą.',
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 13,
+                height: 1.3,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 7,
+              runSpacing: 7,
+              children: chakra.bach.map((item) {
+                return _SoftChip(text: item);
+              }).toList(),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _SummaryCard extends StatelessWidget {
+  const _SummaryCard({
+    required this.results,
+    required this.focusedResults,
+  });
+
+  final List<ChakraResult> results;
+  final List<ChakraResult> focusedResults;
+
+  @override
+  Widget build(BuildContext context) {
+    final balancedCount = results.where((result) => result.score == 0).length;
+    final weakenedCount = results.length - balancedCount;
+    final mainFocus =
+        focusedResults.take(3).map((r) => r.chakra.shortName).toList();
+    final summary = weakenedCount == 0
+        ? 'W teście nie zaznaczono objawów osłabienia. Wszystkie czakry są oznaczone jako będące w harmonii.'
+        : 'Zaznaczono objawy przy $weakenedCount z ${results.length} czakr. Najważniejszy kierunek pracy: ${mainFocus.join(', ')}.';
+
+    return Container(
+      margin: const EdgeInsets.only(top: 4),
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: const Color(0xFF2A1D4F).withValues(alpha: 0.9),
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(color: const Color(0xFFB388FF)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text(
+            'Podsumowanie wszystkich czakr',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 19,
+              fontWeight: FontWeight.w800,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            summary,
+            style: const TextStyle(
+                color: Colors.white, fontSize: 15, height: 1.35),
+          ),
+          const SizedBox(height: 12),
+          Wrap(
+            spacing: 7,
+            runSpacing: 7,
+            children: results.map((result) {
+              return _SoftChip(
+                text:
+                    '${result.chakra.shortName}: ${result.score}/${result.total}',
+              );
             }).toList(),
           ),
         ],
@@ -541,26 +680,6 @@ class _Disclaimer extends StatelessWidget {
     return Text(
       text,
       style: const TextStyle(color: Colors.white60, fontSize: 12, height: 1.3),
-    );
-  }
-}
-
-class _EmptyResult extends StatelessWidget {
-  const _EmptyResult();
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.08),
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: Colors.white24),
-      ),
-      child: const Text(
-        'Zaznacz problemy przy wybranych czakrach, a program pokaże, które obszary wymagają największej uwagi.',
-        style: TextStyle(color: Colors.white, fontSize: 15, height: 1.35),
-      ),
     );
   }
 }
@@ -637,6 +756,7 @@ class ChakraInfo {
     required this.areas,
     required this.problems,
     required this.support,
+    required this.bach,
   });
 
   final String id;
@@ -647,6 +767,7 @@ class ChakraInfo {
   final List<String> areas;
   final List<String> problems;
   final List<String> support;
+  final List<String> bach;
 
   String get shortName {
     return name.replaceFirst('Czakra ', '');
@@ -676,6 +797,7 @@ class ChakraInfo {
       areas: _stringList(data['areas']),
       problems: _stringList(data['problems']),
       support: _stringList(data['support']),
+      bach: _stringList(data['bach']),
     );
   }
 
@@ -692,24 +814,58 @@ class ChakraResult {
     required this.chakra,
     required this.score,
     required this.total,
+    required this.selectedProblemTexts,
   });
 
   final ChakraInfo chakra;
   final int score;
   final int total;
+  final List<String> selectedProblemTexts;
 
   double get percent => total == 0 ? 0 : score / total;
 
   String get percentText => '${(percent * 100).round()}%';
 
+  String get statusTitle {
+    if (score == 0) {
+      return 'w harmonii';
+    }
+
+    if (percent <= 0.25) {
+      return 'lekko osłabiona';
+    }
+
+    if (percent <= 0.55) {
+      return 'osłabiona';
+    }
+
+    return 'mocno osłabiona lub zablokowana';
+  }
+
+  String get description {
+    if (score == 0) {
+      return '${chakra.name} jest w harmonii, bo nie zaznaczono objawów z części „Gdy jest osłabiona lub zablokowana”.';
+    }
+
+    return '${chakra.name} może być ${statusTitle.toLowerCase()}. Zaznaczono $score z $total objawów, czyli około $percentText listy osłabienia/zablokowania.';
+  }
+
   factory ChakraResult.from(
     ChakraInfo chakra,
     Set<String> selectedProblems,
   ) {
+    final selectedTexts = <String>[];
+    for (var i = 0; i < chakra.problems.length; i++) {
+      if (selectedProblems.contains(chakra.problemKey(i))) {
+        selectedTexts.add(chakra.problems[i]);
+      }
+    }
+
     return ChakraResult(
       chakra: chakra,
-      score: chakra.selectedCount(selectedProblems),
+      score: selectedTexts.length,
       total: chakra.problems.length,
+      selectedProblemTexts: selectedTexts,
     );
   }
 }

@@ -1,0 +1,110 @@
+{
+  "main_title": "Kapusta kiszona duszona z pieczarkami",
+  "items": [
+    {
+      "name": "ukiszonej (kwaśnej) nieodciśniętej kapusty",
+      "amount": 2,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "tymianku",
+      "amount": 1,
+      "measure": "szczyptę ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": " kurkumy",
+      "amount": 0.33,
+      "measure": "łyżeczki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cebule",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "oleju",
+      "amount": 4,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "kminku",
+      "amount": 0.5,
+      "measure": "łyżeczki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "jałowca",
+      "amount": 2,
+      "measure": "ziarenka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "młodych pieczarek",
+      "amount": 30,
+      "measure": "dag",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "marchewki",
+      "amount": 5,
+      "measure": "sztuk",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0.33,
+      "measure": "łyżeczki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "ziela angielskiego",
+      "amount": 4,
+      "measure": "ziarenka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "laurowy",
+      "amount": 1,
+      "measure": "listek",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz cayenne",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz czarny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

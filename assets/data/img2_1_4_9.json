@@ -1,0 +1,117 @@
+{
+  "main_title": "Kapusta duszona z pomidorami",
+  "items": [
+    {
+      "name": "tymianku",
+      "amount": 1,
+      "measure": "szczyptą",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "duże cebule",
+      "amount": 3,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "oleju",
+      "amount": 4,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "kminku",
+      "amount": 0,
+      "measure": "łyżeczki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "główki kapusty",
+      "amount": 1,
+      "measure": "sztukę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czosnku",
+      "amount": 4,
+      "measure": "ząbki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "ziela angielskiego",
+      "amount": 4,
+      "measure": "ziarnka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "listka laurowego",
+      "amount": 0.5,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 0.5,
+      "measure": "łyżeczki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz biały",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz cayenne",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pomidory",
+      "amount": 4,
+      "measure": "sztuki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąki pszennej",
+      "amount": 2,
+      "measure": "łyżki",
+      "base_unit": "g",
+      "base_value": 15
+    },
+    {
+      "name": "kurkumy",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kminku",
+      "amount": 0.5,
+      "measure": "łyżeczki ",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

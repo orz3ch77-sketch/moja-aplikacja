@@ -7,7 +7,7 @@ void main() {
       .listSync()
       .whereType<File>()
       .map((f) => f.path.replaceAll('\\', '/'))
-      .where((f) => f.endsWith('.png'))
+      .where((f) => f.endsWith('.webp'))
       .toList();
 
   files.sort();

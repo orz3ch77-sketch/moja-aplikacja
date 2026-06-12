@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generator linkow budzika</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, sans-serif;
+      background: #10131f;
+      color: #fff;
+      display: grid;
+      place-items: center;
+    }
+
+    main {
+      width: min(820px, calc(100% - 32px));
+      background: #1c2235;
+      border: 1px solid #33405f;
+      border-radius: 8px;
+      padding: 24px;
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+
+    p {
+      margin: 0 0 18px;
+      color: #cfd6ec;
+      line-height: 1.45;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 6px;
+      color: #cfd6ec;
+      font-size: 14px;
+    }
+
+    input, textarea {
+      box-sizing: border-box;
+      width: 100%;
+      border: 1px solid #4a5b84;
+      border-radius: 6px;
+      background: #0e1220;
+      color: #fff;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    textarea {
+      min-height: 220px;
+      resize: vertical;
+      font-family: Consolas, monospace;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: 18px 0;
+    }
+
+    button {
+      border: 0;
+      border-radius: 6px;
+      background: #7c4dff;
+      color: #fff;
+      padding: 12px 16px;
+      font-size: 15px;
+      cursor: pointer;
+    }
+
+    button.secondary {
+      background: #26324f;
+    }
+
+    .error {
+      min-height: 20px;
+      color: #ff8a80;
+      font-size: 14px;
+    }
+
+    .hint {
+      margin-top: 10px;
+      color: #aeb9dc;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Generator JSON linkow budzika</h1>
+    <p>
+      Wpisz nazwe assetu z koncowka <strong>_o1</strong>, <strong>_o2</strong> itd.
+      oraz nazwe, ktora ma pokazac sie w budziku, np. <strong>Afirmacje Sukcesu.json</strong>.
+      Pobierany plik JSON bedzie mial nazwe assetu, np. <strong>img1_1_3_4_o1.json</strong>.
+    </p>
+
+    <label for="iconName">Nazwa assetu</label>
+    <input id="iconName" placeholder="img1_1_3_4_o1" value="img1_1_3_4_o1">
+
+    <label for="alarmName">Nazwa w budziku</label>
+    <input id="alarmName" placeholder="Afirmacje Sukcesu.json" value="Afirmacje Sukcesu.json">
+
+    <label for="url">Adres afirmacji URL</label>
+    <input id="url" placeholder="https://adres-afirmacji.pl">
+
+    <div class="buttons">
+      <button type="button" onclick="addLink()">Dodaj link</button>
+      <button class="secondary" type="button" onclick="copyJson()">Kopiuj JSON</button>
+      <button class="secondary" type="button" onclick="downloadJson()">Pobierz JSON assetu</button>
+      <button class="secondary" type="button" onclick="clearJson()">Wyczysc</button>
+    </div>
+
+    <div id="error" class="error"></div>
+
+    <label for="output">Wynik JSON</label>
+    <textarea id="output" spellcheck="false">{}</textarea>
+    <div class="hint">
+      Pobierany plik wstawiamy do: assets/clock_alarm_links/
+    </div>
+  </main>
+
+  <script>
+    function getValues() {
+      return {
+        iconName: document.getElementById('iconName').value.trim(),
+        alarmName: document.getElementById('alarmName').value.trim(),
+        url: document.getElementById('url').value.trim(),
+      };
+    }
+
+    function normalizeAlarmName(alarmName) {
+      return alarmName.replace(/\.json$/i, '').trim();
+    }
+
+    function validate(iconName, alarmName, url) {
+      if (!/^img[\d_]+_o\d+$/.test(iconName)) {
+        return 'Nazwa assetu musi wygladac np. img1_1_3_4_o1';
+      }
+
+      if (!normalizeAlarmName(alarmName)) {
+        return 'Wpisz nazwe w budziku, np. Afirmacje Sukcesu.json';
+      }
+
+      if (!/^https?:\/\//.test(url)) {
+        return 'Adres URL musi zaczynac sie od http:// albo https://';
+      }
+
+      return '';
+    }
+
+    function readCurrentJson() {
+      const text = document.getElementById('output').value.trim() || '{}';
+      try {
+        const parsed = JSON.parse(text);
+        if (!parsed || Array.isArray(parsed) || typeof parsed !== 'object') {
+          throw new Error();
+        }
+        return parsed;
+      } catch (_) {
+        throw new Error('Wynik musi byc poprawnym obiektem JSON.');
+      }
+    }
+
+    function writeJson(data) {
+      const sorted = {};
+      Object.keys(data).sort((a, b) => a.localeCompare(b, 'pl', { numeric: true }))
+        .forEach((key) => {
+          sorted[key] = data[key];
+        });
+      document.getElementById('output').value = JSON.stringify(sorted, null, 2);
+    }
+
+    function addLink() {
+      const { iconName, alarmName, url } = getValues();
+      const error = validate(iconName, alarmName, url);
+      document.getElementById('error').textContent = error;
+
+      if (error) {
+        return;
+      }
+
+      try {
+        const data = readCurrentJson();
+        data[iconName] = {
+          title: normalizeAlarmName(alarmName),
+          url,
+        };
+        writeJson(data);
+      } catch (err) {
+        document.getElementById('error').textContent = err.message;
+      }
+    }
+
+    async function copyJson() {
+      try {
+        const data = readCurrentJson();
+        writeJson(data);
+        await navigator.clipboard.writeText(document.getElementById('output').value);
+      } catch (err) {
+        document.getElementById('error').textContent = err.message;
+      }
+    }
+
+    function downloadJson() {
+      try {
+        const data = readCurrentJson();
+        writeJson(data);
+      } catch (err) {
+        document.getElementById('error').textContent = err.message;
+        return;
+      }
+
+      const blob = new Blob([document.getElementById('output').value], {
+        type: 'application/json',
+      });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      const { iconName } = getValues();
+      link.download = `${iconName}.json`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    }
+
+    function clearJson() {
+      document.getElementById('error').textContent = '';
+      document.getElementById('output').value = '{}';
+    }
+  </script>
+</body>
+</html>

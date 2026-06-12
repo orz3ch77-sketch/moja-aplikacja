@@ -1,0 +1,82 @@
+{
+  "main_title": "Marchewka duszona",
+  "items": [
+    {
+      "name": "tymianku",
+      "amount": 1,
+      "measure": "szczypta",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "marchewki",
+      "amount": 1,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "masła",
+      "amount": 1,
+      "measure": "łyżeczka",
+      "base_unit": "g",
+      "base_value": 5
+    },
+    {
+      "name": "miodu",
+      "amount": 0.5,
+      "measure": "łyżeczka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprzu białego",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "imbiru",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cebulę",
+      "amount": 1,
+      "measure": "sztukę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "soku z cytryny",
+      "amount": 1,
+      "measure": "łyżeczka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąka ziemniaczana",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

@@ -1,0 +1,54 @@
+{
+  "main_title": "Groszek konserwowy na ciepło",
+  "items": [
+    {
+      "name": "groszku",
+      "amount": 1,
+      "measure": "puszkę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "masła",
+      "amount": 0.5,
+      "measure": "łyżeczki ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprzu białego",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "soli",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cytryny",
+      "amount": 1,
+      "measure": "łyżeczkę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "mąka ziemniaczana",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

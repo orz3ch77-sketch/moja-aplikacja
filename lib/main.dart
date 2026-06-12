@@ -2,14 +2,18 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'chakra/chakra_test_page.dart';
+import 'friends/friends_page.dart';
 import 'my_clock/pages/my_clock_page.dart';
+import 'shared/confirm_delete_dialog.dart';
 import 'voice/voice_description_loader.dart';
 import 'voice/voice_speaker.dart';
 
 late List<String> assetList;
 late List<String> dataList;
+Map<String, String> externalLinks = {};
 
 Future<void> loadAppAssets() async {
   final manifest = await AssetManifest.loadFromAssetBundle(rootBundle);
@@ -24,6 +28,8 @@ Future<void> loadAppAssets() async {
       .where((e) => e.startsWith('assets/data/') && e.endsWith('.json'))
       .toList()
     ..sort(naturalCompare);
+
+  externalLinks = await loadExternalLinks(assets);
 }
 
 int naturalCompare(String a, String b) {
@@ -45,7 +51,60 @@ int naturalCompare(String a, String b) {
 }
 
 String assetBaseName(String assetPath) {
-  return assetPath.split('/').last.replaceAll('.webp', '');
+  return assetPath.split('/').last.replaceFirst(RegExp(r'\.[^.]+$'), '');
+}
+
+String levelHierarchyBaseFor(String base) {
+  if (isExternalInternetLinkBase(base)) {
+    return base.replaceFirst(RegExp(r'_o\d+$'), '');
+  }
+
+  return base;
+}
+
+bool isExternalInternetLinkBase(String base) {
+  return RegExp(r'^img[\d_]+_o\d+$').hasMatch(base);
+}
+
+String? externalInternetLinkFor(String base) {
+  final link = externalLinks[base]?.trim();
+
+  if (link == null || link.isEmpty) {
+    return null;
+  }
+
+  return link;
+}
+
+Future<Map<String, String>> loadExternalLinks(List<String> assets) async {
+  final linkFiles = assets
+      .where(
+        (asset) =>
+            asset.startsWith('assets/external_links/') &&
+            asset.endsWith('.json'),
+      )
+      .toList()
+    ..sort(naturalCompare);
+
+  final links = <String, String>{};
+
+  for (final file in linkFiles) {
+    final text = await rootBundle.loadString(file);
+    final jsonMap = json.decode(text) as Map<String, dynamic>;
+    final fileBase = assetBaseName(file);
+
+    if (jsonMap['url'] != null) {
+      links[fileBase] = '${jsonMap['url']}'.trim();
+    }
+
+    for (final entry in jsonMap.entries) {
+      if (entry.key.startsWith('img')) {
+        links[entry.key] = '${entry.value}'.trim();
+      }
+    }
+  }
+
+  return links;
 }
 
 void main() async {
@@ -60,6 +119,8 @@ void main() async {
   await Hive.openBox('my_clock_tasks');
   await Hive.openBox('shopping_lists');
   await Hive.openBox('shopping_lists_main');
+  await Hive.openBox('friends');
+  await Hive.openBox('todo_analysis_archive');
 
   runApp(const MyApp());
 }
@@ -92,6 +153,24 @@ class MyApp extends StatelessWidget {
 
 Widget bg() =>
     Positioned.fill(child: Image.asset('assets/pg.webp', fit: BoxFit.cover));
+
+void showTopMessage(BuildContext context, String message) {
+  final media = MediaQuery.of(context);
+  final topMargin = media.padding.top + 12;
+  final bottomMargin = media.size.height > topMargin + 72
+      ? media.size.height - topMargin - 72
+      : 16.0;
+
+  ScaffoldMessenger.of(context)
+    ..hideCurrentSnackBar()
+    ..showSnackBar(
+      SnackBar(
+        content: Text(message),
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.fromLTRB(16, topMargin, 16, bottomMargin),
+      ),
+    );
+}
 
 Widget fancyTileFrame(String path) {
   return Container(
@@ -172,6 +251,8 @@ Widget topBar({
   VoidCallback? onNext,
   VoidCallback? onPrev,
   VoidCallback? onDelete,
+  VoidCallback? onTools,
+  VoidCallback? onAnalysis,
   String? counter,
 }) {
   return Positioned(
@@ -203,6 +284,11 @@ Widget topBar({
                   );
                 },
               ),
+              if (onTools != null)
+                IconButton(
+                  icon: const Icon(Icons.apps, color: Colors.white),
+                  onPressed: onTools,
+                ),
             ],
           ),
           if (counter != null)
@@ -220,6 +306,15 @@ Widget topBar({
                 IconButton(
                   icon: const Icon(Icons.delete, color: Colors.white),
                   onPressed: onDelete,
+                ),
+              if (onAnalysis != null)
+                IconButton(
+                  tooltip: 'Analiza',
+                  icon: const Icon(
+                    Icons.analytics_outlined,
+                    color: Colors.white,
+                  ),
+                  onPressed: onAnalysis,
                 ),
               if (onPrev != null)
                 IconButton(
@@ -329,7 +424,7 @@ class _LevelPageState extends State<LevelPage> {
       }
 
       final name = assetBaseName(e);
-      final parts = name.split('_');
+      final parts = levelHierarchyBaseFor(name).split('_');
 
       return parts.length == baseParts.length + 1;
     }).toList()
@@ -355,6 +450,229 @@ class _LevelPageState extends State<LevelPage> {
 
   bool get isLinksLevel {
     return widget.base == 'img8_2' || widget.base == 'img8_4';
+  }
+
+  Future<void> showSelectMessage(String message) async {
+    await showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('OK'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> showTodoAnalysisDialog(Box box) async {
+    if (selectedItems.isEmpty) {
+      await showSelectMessage('Zaznacz');
+      return;
+    }
+
+    final selectedCategoryItems = selectedItems.where((index) {
+      if (index < 0 || index >= box.length) {
+        return false;
+      }
+
+      final item = Map<String, dynamic>.from(box.getAt(index));
+      final imagePath = item['imagePath'] as String? ?? '';
+      final base = assetBaseName(imagePath);
+
+      return base == 'img1' ||
+          base == 'img2' ||
+          base.startsWith('img1_') ||
+          base.startsWith('img2_');
+    }).toList();
+
+    if (selectedCategoryItems.isEmpty) {
+      await showSelectMessage('Zaznacz kategorię 1 lub 2');
+      return;
+    }
+
+    final checked = <String>{};
+    final ratings = <String, int>{};
+    final customNoteController = TextEditingController();
+    final now = DateTime.now();
+    final dateLabel =
+        '${now.day.toString().padLeft(2, '0')}.${now.month.toString().padLeft(2, '0')}.${now.year}';
+    const options = [
+      (id: 'energy_up', label: 'Wzrost energii', stars: true),
+      (id: 'energy_same', label: 'Bez zmian', stars: false),
+      (id: 'energy_down', label: 'Spadek energii', stars: true),
+      (id: 'mood_good', label: 'Dobre\nsamopoczucie', stars: true),
+      (id: 'mood_same', label: 'Bez zmian', stars: false),
+      (id: 'mood_bad', label: 'Złe\nsamopoczucie', stars: true),
+    ];
+
+    try {
+      await showDialog<void>(
+        context: context,
+        builder: (_) => StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: const Text('Zaznacz'),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Data: $dateLabel',
+                        style: const TextStyle(fontWeight: FontWeight.w800),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    for (final option in options)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Row(
+                          children: [
+                            Checkbox(
+                              value: checked.contains(option.id),
+                              onChanged: (value) {
+                                setDialogState(() {
+                                  if (value == true) {
+                                    checked.add(option.id);
+                                  } else {
+                                    checked.remove(option.id);
+                                  }
+                                });
+                              },
+                            ),
+                            Expanded(
+                              child: _analysisOptionLabel(option.label),
+                            ),
+                            if (option.stars)
+                              Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  for (var star = 1; star <= 3; star++)
+                                    IconButton(
+                                      visualDensity: VisualDensity.compact,
+                                      padding: EdgeInsets.zero,
+                                      constraints: const BoxConstraints(
+                                        minWidth: 22,
+                                        minHeight: 28,
+                                      ),
+                                      icon: Icon(
+                                        (ratings[option.id] ?? 0) >= star
+                                            ? Icons.star
+                                            : Icons.star_border,
+                                        color: const Color(0xFFFFC107),
+                                        size: 20,
+                                      ),
+                                      onPressed: () {
+                                        setDialogState(() {
+                                          checked.add(option.id);
+                                          ratings[option.id] = star;
+                                        });
+                                      },
+                                    ),
+                                ],
+                              ),
+                          ],
+                        ),
+                      ),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: customNoteController,
+                      minLines: 2,
+                      maxLines: 2,
+                      decoration: const InputDecoration(
+                        labelText: 'Własne',
+                        hintText: 'Dopisz swoje uwagi',
+                        border: OutlineInputBorder(),
+                        isDense: true,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Anuluj'),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    final selectedRecords = selectedCategoryItems.map((index) {
+                      final item = Map<String, dynamic>.from(box.getAt(index));
+                      final imagePath = item['imagePath'] as String? ?? '';
+                      final base = assetBaseName(imagePath);
+
+                      return {
+                        'index': index,
+                        'imagePath': imagePath,
+                        'title': base,
+                      };
+                    }).toList();
+
+                    await Hive.box('todo_analysis_archive').add({
+                      'createdAt': now.toIso8601String(),
+                      'date': dateLabel,
+                      'items': selectedRecords,
+                      'customNote': customNoteController.text.trim(),
+                      'answers': [
+                        for (final option in options)
+                          if (checked.contains(option.id))
+                            {
+                              'id': option.id,
+                              'label': option.label,
+                              if (option.stars)
+                                'stars': ratings[option.id] ?? 0,
+                            },
+                      ],
+                    });
+
+                    if (!context.mounted) {
+                      return;
+                    }
+
+                    Navigator.pop(context);
+                    showTopMessage(context, 'Zapisano analizę');
+                  },
+                  child: const Text('Zapisz'),
+                ),
+              ],
+            );
+          },
+        ),
+      );
+    } finally {
+      customNoteController.dispose();
+    }
+  }
+
+  Widget _analysisOptionLabel(String label) {
+    final parts = label.split('\n');
+    if (parts.length == 2 && parts[1] == 'samopoczucie') {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(parts.first),
+          const Text(
+            'samopoczucie',
+            maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.visible,
+            style: TextStyle(fontSize: 13),
+          ),
+        ],
+      );
+    }
+
+    return Text(
+      label,
+      maxLines: 2,
+      softWrap: true,
+      overflow: TextOverflow.visible,
+    );
   }
 
   @override
@@ -431,48 +749,33 @@ class _LevelPageState extends State<LevelPage> {
             ),
             topBar(
               context: context,
+              onAnalysis: widget.base == 'img8_2'
+                  ? () => showTodoAnalysisDialog(box)
+                  : null,
               onDelete: () {
                 if (selectedItems.isEmpty) {
                   return;
                 }
 
-                showDialog(
-                  context: context,
-                  builder: (_) => AlertDialog(
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            final keys = selectedItems.toList()
-                              ..sort((a, b) => b.compareTo(a));
+                () async {
+                  final confirmed = await confirmDeleteDialog(context);
+                  if (!confirmed) {
+                    return;
+                  }
 
-                            final navigator = Navigator.of(context);
+                  final keys = selectedItems.toList()
+                    ..sort((a, b) => b.compareTo(a));
 
-                            for (final index in keys) {
-                              await box.deleteAt(index);
-                            }
+                  for (final index in keys) {
+                    await box.deleteAt(index);
+                  }
 
-                            if (!mounted) return;
+                  if (!mounted) return;
 
-                            selectedItems.clear();
-                            selectionMode = false;
-                            navigator.pop();
-                            setState(() {});
-                          },
-                          child: const Text('Usuń'),
-                        ),
-                        const SizedBox(height: 12),
-                        ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text('Anuluj'),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
+                  selectedItems.clear();
+                  selectionMode = false;
+                  setState(() {});
+                }();
               },
             ),
           ],
@@ -501,7 +804,24 @@ class _LevelPageState extends State<LevelPage> {
                 onTap: () {
                   final nextBase = assetBaseName(level);
 
-                  if (nextBase == 'img1_1_3_2') {
+                  if (isExternalInternetLinkBase(nextBase)) {
+                    final url = externalInternetLinkFor(nextBase);
+
+                    if (url == null) {
+                      showTopMessage(context, 'Brak linku dla $nextBase');
+                      return;
+                    }
+
+                    launchUrl(
+                      Uri.parse(url),
+                      webOnlyWindowName: '_blank',
+                    );
+                    return;
+                  }
+
+                  final linkedBase = nextBase;
+
+                  if (linkedBase == 'img1_1_4_3') {
                     Navigator.push(
                       context,
                       slideRoute(const ChakraTestPage()),
@@ -509,7 +829,15 @@ class _LevelPageState extends State<LevelPage> {
                     return;
                   }
 
-                  if (nextBase == 'img8_1') {
+                  if (linkedBase == 'img8_5_1') {
+                    Navigator.push(
+                      context,
+                      slideRoute(const FriendsPage()),
+                    );
+                    return;
+                  }
+
+                  if (linkedBase == 'img8_1') {
                     Navigator.push(
                       context,
                       slideRoute(const MainShoppingListPage()),
@@ -517,7 +845,7 @@ class _LevelPageState extends State<LevelPage> {
                     return;
                   }
 
-                  if (nextBase == 'img8_3') {
+                  if (linkedBase == 'img8_3') {
                     Navigator.push(
                       context,
                       slideRoute(const MyClockPage()),
@@ -525,15 +853,15 @@ class _LevelPageState extends State<LevelPage> {
                     return;
                   }
 
-                  if (nextBase == 'img8_2' || nextBase == 'img8_4') {
+                  if (linkedBase == 'img8_2' || linkedBase == 'img8_4') {
                     Navigator.push(
                       context,
-                      slideRoute(LevelPage(base: nextBase)),
+                      slideRoute(LevelPage(base: linkedBase)),
                     );
                     return;
                   }
 
-                  final gallery = galleryFor(nextBase);
+                  final gallery = galleryFor(linkedBase);
 
                   if (gallery.isNotEmpty) {
                     Navigator.push(
@@ -545,12 +873,12 @@ class _LevelPageState extends State<LevelPage> {
                     return;
                   }
 
-                  final hasChildren = directLevelsFor(nextBase).isNotEmpty;
+                  final hasChildren = directLevelsFor(linkedBase).isNotEmpty;
 
                   if (hasChildren) {
                     Navigator.push(
                       context,
-                      slideRoute(LevelPage(base: nextBase)),
+                      slideRoute(LevelPage(base: linkedBase)),
                     );
                   }
                 },
@@ -646,11 +974,7 @@ class _GalleryPageState extends State<GalleryPage> {
     });
 
     if (addedToFavorites) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Dodano do: Moje menu do Ulubione'),
-        ),
-      );
+      showTopMessage(context, 'Dodano do: Moje menu do Ulubione');
     }
   }
 
@@ -678,11 +1002,7 @@ class _GalleryPageState extends State<GalleryPage> {
                 if (!mounted) return;
 
                 navigator.pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Dodano do: Moje menu do zrobienia'),
-                  ),
-                );
+                showTopMessage(context, 'Dodano do: Moje menu do zrobienia');
               },
               child: const Text('Do zrobienia'),
             ),
@@ -694,11 +1014,7 @@ class _GalleryPageState extends State<GalleryPage> {
                 if (!mounted) return;
 
                 navigator.pop();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Dodano do: Moje menu do zegara'),
-                  ),
-                );
+                showTopMessage(context, 'Dodano do: Moje menu do zegara');
               },
               child: const Text('Mój zegar'),
             ),
@@ -720,6 +1036,238 @@ class _GalleryPageState extends State<GalleryPage> {
 
     return box.containsKey(fileName) ||
         dataList.contains('assets/data/$fileName.json');
+  }
+
+  List<Map<String, dynamic>> analysisRecordsForLevel(Box box) {
+    final records = [
+      for (final value in box.values)
+        if (value is Map)
+          if (_analysisRecordMatchesLevel(Map<String, dynamic>.from(value)))
+            Map<String, dynamic>.from(value),
+    ];
+
+    records.sort(
+      (a, b) => _analysisRecordTime(b).compareTo(_analysisRecordTime(a)),
+    );
+
+    return records;
+  }
+
+  DateTime _analysisRecordTime(Map<String, dynamic> record) {
+    final createdAt = DateTime.tryParse('${record['createdAt'] ?? ''}');
+    if (createdAt != null) {
+      return createdAt;
+    }
+
+    final dateParts = '${record['date'] ?? ''}'.split('.');
+    if (dateParts.length == 3) {
+      final day = int.tryParse(dateParts[0]);
+      final month = int.tryParse(dateParts[1]);
+      final year = int.tryParse(dateParts[2]);
+      if (day != null && month != null && year != null) {
+        return DateTime(year, month, day);
+      }
+    }
+
+    return DateTime.fromMillisecondsSinceEpoch(0);
+  }
+
+  bool _analysisRecordMatchesLevel(Map<String, dynamic> record) {
+    final levelBase = assetBaseName(widget.levelImage);
+    final currentGalleryBase = assetBaseName(widget.images[index]);
+    final items = record['items'];
+    if (items is! List) {
+      return false;
+    }
+
+    return items.any((rawItem) {
+      if (rawItem is! Map) {
+        return false;
+      }
+
+      final item = Map<String, dynamic>.from(rawItem);
+      final imagePath = '${item['imagePath'] ?? ''}';
+      final itemBase = assetBaseName(imagePath);
+
+      return imagePath == widget.levelImage ||
+          itemBase == levelBase ||
+          currentGalleryBase.startsWith('${itemBase}_g') ||
+          itemBase.startsWith(levelBase);
+    });
+  }
+
+  Future<void> showAnalysisArchiveDialog(
+    List<Map<String, dynamic>> records,
+  ) async {
+    if (records.isEmpty) {
+      return;
+    }
+
+    records.sort(
+      (a, b) => _analysisRecordTime(b).compareTo(_analysisRecordTime(a)),
+    );
+
+    var currentIndex = 0;
+
+    await showDialog<void>(
+      context: context,
+      builder: (_) => StatefulBuilder(
+        builder: (context, setDialogState) {
+          final record = records[currentIndex];
+          final answers = _analysisAnswers(record);
+          final customNote = '${record['customNote'] ?? ''}'.trim();
+
+          return AlertDialog(
+            title: Row(
+              children: [
+                const Expanded(child: Text('Analiza')),
+                IconButton(
+                  tooltip: 'Usuń',
+                  icon: const Icon(Icons.delete_outline),
+                  onPressed: () async {
+                    final confirmed = await confirmDeleteDialog(context);
+                    if (!confirmed) {
+                      return;
+                    }
+
+                    await _deleteAnalysisRecord(record);
+                    records.removeAt(currentIndex);
+
+                    if (!context.mounted) {
+                      return;
+                    }
+
+                    if (records.isEmpty) {
+                      Navigator.pop(context);
+                      return;
+                    }
+
+                    setDialogState(() {
+                      if (currentIndex >= records.length) {
+                        currentIndex = records.length - 1;
+                      }
+                    });
+                  },
+                ),
+              ],
+            ),
+            content: SizedBox(
+              width: 360,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          record['date'] as String? ?? '',
+                          style: const TextStyle(fontWeight: FontWeight.w900),
+                        ),
+                      ),
+                      if (records.length > 1)
+                        Text(
+                          'Arkusz ${currentIndex + 1} / ${records.length}',
+                          style: const TextStyle(fontWeight: FontWeight.w700),
+                        ),
+                    ],
+                  ),
+                  const SizedBox(height: 10),
+                  if (answers.isEmpty)
+                    const Text('Brak zaznaczonych opcji')
+                  else
+                    for (final answer in answers)
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          '${answer.$1}${answer.$2 > 0 ? '  ${List.filled(answer.$2, '★').join()}' : ''}',
+                        ),
+                      ),
+                  if (customNote.isNotEmpty) ...[
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Własne',
+                      style: TextStyle(fontWeight: FontWeight.w800),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(customNote),
+                  ],
+                  if (records.length > 1) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconButton(
+                          tooltip: 'Nowsza analiza',
+                          icon: const Icon(Icons.chevron_left),
+                          onPressed: currentIndex == 0
+                              ? null
+                              : () {
+                                  setDialogState(() => currentIndex--);
+                                },
+                        ),
+                        Text('${currentIndex + 1} / ${records.length}'),
+                        IconButton(
+                          tooltip: 'Starsza analiza',
+                          icon: const Icon(Icons.chevron_right),
+                          onPressed: currentIndex == records.length - 1
+                              ? null
+                              : () {
+                                  setDialogState(() => currentIndex++);
+                                },
+                        ),
+                      ],
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: const Text('Zamknij'),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+
+  Future<void> _deleteAnalysisRecord(Map<String, dynamic> record) async {
+    final box = Hive.box('todo_analysis_archive');
+    final createdAt = record['createdAt'];
+
+    for (final key in box.keys) {
+      final raw = box.get(key);
+      if (raw is! Map) {
+        continue;
+      }
+
+      final item = Map<String, dynamic>.from(raw);
+      if (item['createdAt'] == createdAt) {
+        await box.delete(key);
+        return;
+      }
+    }
+  }
+
+  List<(String, int)> _analysisAnswers(Map<String, dynamic> record) {
+    final answers = record['answers'];
+    if (answers is! List) {
+      return const <(String, int)>[];
+    }
+
+    return [
+      for (final rawAnswer in answers)
+        if (rawAnswer is Map)
+          (
+            '${Map<String, dynamic>.from(rawAnswer)['label'] ?? ''}',
+            int.tryParse(
+                    '${Map<String, dynamic>.from(rawAnswer)['stars'] ?? 0}') ??
+                0,
+          ),
+    ];
   }
 
   Widget buildToolsPanel() {
@@ -765,6 +1313,24 @@ class _GalleryPageState extends State<GalleryPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  ValueListenableBuilder(
+                    valueListenable:
+                        Hive.box('todo_analysis_archive').listenable(),
+                    builder: (context, Box analysisBox, _) {
+                      final records = analysisRecordsForLevel(analysisBox);
+
+                      return IconButton(
+                        tooltip: 'Analiza',
+                        icon: Icon(
+                          Icons.analytics_outlined,
+                          color: records.isEmpty ? Colors.grey : Colors.white,
+                        ),
+                        onPressed: records.isEmpty
+                            ? null
+                            : () => showAnalysisArchiveDialog(records),
+                      );
+                    },
+                  ),
                   IconButton(
                     icon: Icon(
                       isFavorite ? Icons.favorite : Icons.favorite_border,
@@ -798,13 +1364,6 @@ class _GalleryPageState extends State<GalleryPage> {
                         : null,
                   ),
                   IconButton(
-                    icon: const Icon(
-                      Icons.monetization_on_outlined,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                  ),
-                  IconButton(
                     icon: const Icon(Icons.mail_outline, color: Colors.white),
                     onPressed: () {},
                   ),
@@ -819,13 +1378,19 @@ class _GalleryPageState extends State<GalleryPage> {
   void hideGalleryBars() {
     setState(() {
       chromeVisible = false;
-      toolsOpen = false;
     });
   }
 
   void showGalleryBars() {
     setState(() {
       chromeVisible = true;
+    });
+  }
+
+  void toggleToolsPanel() {
+    setState(() {
+      chromeVisible = true;
+      toolsOpen = !toolsOpen;
     });
   }
 
@@ -882,11 +1447,7 @@ class _GalleryPageState extends State<GalleryPage> {
       if (!voiceSpeaker.isSupported) {
         if (!mounted) return;
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Odczyt głosowy działa w przeglądarce.'),
-          ),
-        );
+        showTopMessage(context, 'Odczyt głosowy działa w przeglądarce.');
         return;
       }
 
@@ -896,17 +1457,11 @@ class _GalleryPageState extends State<GalleryPage> {
 
       setState(() => isVoicePlaying = true);
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Czytam: ${description.title}')),
-      );
+      showTopMessage(context, 'Czytam: ${description.title}');
     } on Object {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Brak opisu głosowego dla tego obrazu.'),
-        ),
-      );
+      showTopMessage(context, 'Brak opisu głosowego dla tego obrazu.');
     }
   }
 
@@ -982,7 +1537,7 @@ class _GalleryPageState extends State<GalleryPage> {
               );
             },
           ),
-          if (chromeVisible) buildToolsPanel(),
+          buildToolsPanel(),
           if (chromeVisible) buildVoiceButton(),
           if (chromeVisible)
             topBar(
@@ -1000,7 +1555,10 @@ class _GalleryPageState extends State<GalleryPage> {
 class ShoppingListPage extends StatefulWidget {
   final String galleryImage;
 
-  const ShoppingListPage({super.key, required this.galleryImage});
+  const ShoppingListPage({
+    super.key,
+    required this.galleryImage,
+  });
 
   @override
   State<ShoppingListPage> createState() => _ShoppingListPageState();
@@ -1025,27 +1583,21 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
 
   Future<void> loadJson() async {
     final box = Hive.box('shopping_lists');
+    late Map<String, dynamic> loadedData;
 
     if (box.containsKey(fileName)) {
-      final savedData = Map<String, dynamic>.from(box.get(fileName));
+      loadedData = Map<String, dynamic>.from(box.get(fileName));
+    } else {
+      final jsonString = await rootBundle.loadString(
+        'assets/data/$fileName.json',
+      );
 
-      setState(() {
-        data = savedData;
-      });
-
-      return;
+      loadedData = Map<String, dynamic>.from(json.decode(jsonString));
+      await box.put(fileName, loadedData);
     }
 
-    final jsonString = await rootBundle.loadString(
-      'assets/data/$fileName.json',
-    );
-
-    final jsonData = Map<String, dynamic>.from(json.decode(jsonString));
-
-    await box.put(fileName, jsonData);
-
     setState(() {
-      data = jsonData;
+      data = loadedData;
     });
   }
 
@@ -1146,6 +1698,11 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                       foregroundColor: Colors.white,
                     ),
                     onPressed: () async {
+                      final confirmed = await confirmDeleteDialog(context);
+                      if (!confirmed) {
+                        return;
+                      }
+
                       await Hive.box('shopping_lists').delete(fileName);
                       await loadJson();
                     },
@@ -1181,28 +1738,11 @@ class _ShoppingListPageState extends State<ShoppingListPage> {
                                 deletingIndex = i;
                               });
 
-                              final confirm = await showDialog<bool>(
-                                context: context,
-                                builder: (_) => AlertDialog(
-                                  content: const Text('Potwierdź usunięcie'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, false);
-                                      },
-                                      child: const Text('Anuluj'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, true);
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
+                              final confirm = await confirmDeleteDialog(
+                                context,
                               );
 
-                              if (confirm == true) {
+                              if (confirm) {
                                 setState(() {
                                   data!['items'].removeAt(i);
                                 });
@@ -1338,34 +1878,11 @@ class _MainShoppingListPageState extends State<MainShoppingListPage> {
                                 deletingIndex = i;
                               });
 
-                              final confirm = await showDialog<bool>(
-                                context: context,
-                                builder: (_) => AlertDialog(
-                                  content: const Center(
-                                    heightFactor: 1,
-                                    child: Text(
-                                      'Potwierdź usunięcie',
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, false);
-                                      },
-                                      child: const Text('Anuluj'),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context, true);
-                                      },
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
+                              final confirm = await confirmDeleteDialog(
+                                context,
                               );
 
-                              if (confirm == true) {
+                              if (confirm) {
                                 items.removeAt(i);
                                 await box.put('items', items);
                               }
@@ -1388,127 +1905,119 @@ class _MainShoppingListPageState extends State<MainShoppingListPage> {
             child: Container(
               padding: const EdgeInsets.all(16),
               color: Colors.white,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () async {
-                        final confirm = await showDialog<bool>(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            content: const Center(
-                              heightFactor: 1,
-                              child: Text(
-                                'Potwierdź usunięcie',
-                                textAlign: TextAlign.center,
+              child: ValueListenableBuilder(
+                valueListenable: box.listenable(),
+                builder: (context, Box box, _) {
+                  final items = List.from(box.get('items', defaultValue: []));
+
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.red,
+                                foregroundColor: Colors.white,
                               ),
+                              onPressed: () async {
+                                final confirm = await confirmDeleteDialog(
+                                  context,
+                                );
+
+                                if (!confirm) {
+                                  return;
+                                }
+
+                                await box.put('items', []);
+                              },
+                              child: const Text('Usuń całą listę'),
                             ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, false);
-                                },
-                                child: const Text('Anuluj'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, true);
-                                },
-                                child: const Text('Ok'),
-                              ),
-                            ],
                           ),
-                        );
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.green,
+                                foregroundColor: Colors.white,
+                              ),
+                              onPressed: () async {
+                                final nameController = TextEditingController();
+                                final amountController =
+                                    TextEditingController();
+                                final measureController =
+                                    TextEditingController();
 
-                        if (confirm != true) {
-                          return;
-                        }
+                                final result = await showDialog<bool>(
+                                  context: context,
+                                  builder: (_) => AlertDialog(
+                                    title: const Text('Dodaj produkt'),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TextField(
+                                          controller: nameController,
+                                          decoration: const InputDecoration(
+                                            hintText: 'Nazwa',
+                                          ),
+                                        ),
+                                        TextField(
+                                          controller: amountController,
+                                          decoration: const InputDecoration(
+                                            hintText: 'Ilość',
+                                          ),
+                                        ),
+                                        TextField(
+                                          controller: measureController,
+                                          decoration: const InputDecoration(
+                                            hintText: 'Miara',
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context, false);
+                                        },
+                                        child: const Text('Anuluj'),
+                                      ),
+                                      TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context, true);
+                                        },
+                                        child: const Text('Dodaj'),
+                                      ),
+                                    ],
+                                  ),
+                                );
 
-                        await box.put('items', []);
-                      },
-                      child: const Text('Usuń całą listę'),
-                    ),
-                  ),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
-                        foregroundColor: Colors.white,
-                      ),
-                      onPressed: () async {
-                        final nameController = TextEditingController();
-                        final amountController = TextEditingController();
-                        final measureController = TextEditingController();
+                                if (result != true) {
+                                  return;
+                                }
 
-                        final result = await showDialog<bool>(
-                          context: context,
-                          builder: (_) => AlertDialog(
-                            title: const Text('Dodaj produkt'),
-                            content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TextField(
-                                  controller: nameController,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Nazwa',
-                                  ),
-                                ),
-                                TextField(
-                                  controller: amountController,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Ilość',
-                                  ),
-                                ),
-                                TextField(
-                                  controller: measureController,
-                                  decoration: const InputDecoration(
-                                    hintText: 'Miara',
-                                  ),
-                                ),
-                              ],
+                                final items = List.from(
+                                  box.get('items', defaultValue: []),
+                                );
+
+                                items.add({
+                                  'name': nameController.text,
+                                  'amount':
+                                      int.tryParse(amountController.text) ?? 1,
+                                  'measure': measureController.text,
+                                });
+
+                                await box.put('items', items);
+                              },
+                              child: const Text('+ Dodaj produkt'),
                             ),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, false);
-                                },
-                                child: const Text('Anuluj'),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context, true);
-                                },
-                                child: const Text('Dodaj'),
-                              ),
-                            ],
                           ),
-                        );
-
-                        if (result != true) {
-                          return;
-                        }
-
-                        final items = List.from(
-                          box.get('items', defaultValue: []),
-                        );
-
-                        items.add({
-                          'name': nameController.text,
-                          'amount': int.tryParse(amountController.text) ?? 1,
-                          'measure': measureController.text,
-                        });
-
-                        await box.put('items', items);
-                      },
-                      child: const Text('+ Dodaj produkt'),
-                    ),
-                  ),
-                ],
+                        ],
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
           ),

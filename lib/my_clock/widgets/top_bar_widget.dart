@@ -3,12 +3,10 @@ import 'package:flutter/material.dart';
 class TopBarWidget extends StatelessWidget {
   const TopBarWidget({
     super.key,
-    required this.weekView,
-    required this.onWeekViewChanged,
+    this.onCalendar,
   });
 
-  final bool weekView;
-  final ValueChanged<bool> onWeekViewChanged;
+  final VoidCallback? onCalendar;
 
   @override
   Widget build(BuildContext context) {
@@ -49,87 +47,35 @@ class TopBarWidget extends StatelessWidget {
             ),
           ),
 
-          // DZIEŃ / TYDZIEŃ
-          Container(
-            padding: const EdgeInsets.all(5),
-            decoration: BoxDecoration(
-              color: const Color(0x221F2A44),
-              borderRadius: BorderRadius.circular(22),
-              border: Border.all(
-                color: const Color(0xFF6A5CFF),
-                width: 1,
+          InkWell(
+            borderRadius: BorderRadius.circular(22),
+            onTap: onCalendar,
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 28,
+                vertical: 14,
               ),
-            ),
-            child: Row(
-              children: [
-                // DZIEŃ
-                InkWell(
-                  borderRadius: BorderRadius.circular(18),
-                  onTap: () => onWeekViewChanged(false),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 22,
-                      vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: weekView
-                          ? null
-                          : const LinearGradient(
-                              colors: [
-                                Color(0xFF7A5CFF),
-                                Color(0xFFB44CFF),
-                              ],
-                            ),
-                      color: weekView ? const Color(0x33141A2E) : null,
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: Text(
-                      'Dzień',
-                      style: TextStyle(
-                        color: weekView ? Colors.white70 : Colors.white,
-                        fontWeight:
-                            weekView ? FontWeight.w600 : FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [
+                    Color(0xFF7A5CFF),
+                    Color(0xFFB44CFF),
+                  ],
                 ),
-
-                const SizedBox(width: 8),
-
-                // TYDZIEŃ
-                InkWell(
-                  borderRadius: BorderRadius.circular(18),
-                  onTap: () => onWeekViewChanged(true),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 22,
-                      vertical: 12,
-                    ),
-                    decoration: BoxDecoration(
-                      gradient: weekView
-                          ? const LinearGradient(
-                              colors: [
-                                Color(0xFF7A5CFF),
-                                Color(0xFFB44CFF),
-                              ],
-                            )
-                          : null,
-                      color: weekView ? null : const Color(0x33141A2E),
-                      borderRadius: BorderRadius.circular(18),
-                    ),
-                    child: Text(
-                      'Tydzień',
-                      style: TextStyle(
-                        color: weekView ? Colors.white : Colors.white70,
-                        fontWeight:
-                            weekView ? FontWeight.bold : FontWeight.w600,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
+                borderRadius: BorderRadius.circular(22),
+                border: Border.all(
+                  color: const Color(0xFF6A5CFF),
+                  width: 1,
                 ),
-              ],
+              ),
+              child: const Text(
+                'Kalendarz',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                ),
+              ),
             ),
           ),
 

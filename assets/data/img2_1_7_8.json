@@ -1,0 +1,68 @@
+{
+  "main_title": "Sałatka z groszku konserwowego",
+  "items": [
+    {
+      "name": "zielonego groszku",
+      "amount": 1,
+      "measure": "puszka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "cebula",
+      "amount": 1,
+      "measure": "duża",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz czarny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz biały",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kiszony ogórek",
+      "amount": 1,
+      "measure": "średni",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "szczyptę kurkumy",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "szczyptę tymianku",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "majonezu",
+      "amount": 1,
+      "measure": "łyżkę",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

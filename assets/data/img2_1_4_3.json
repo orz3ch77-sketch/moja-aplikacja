@@ -1,0 +1,68 @@
+{
+  "main_title": "Sałatka z buraczków",
+  "items": [
+    {
+      "name": "buraczków",
+      "amount": 1,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kminku",
+      "amount": 1,
+      "measure": "łyżeczkę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "oleju",
+      "amount": 1,
+      "measure": "łyżkę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miodu",
+      "amount": 2,
+      "measure": "łyżeczki",
+      "base_unit": "g",
+      "base_value": 5
+    },
+    {
+      "name": "cebulę",
+      "amount": 1,
+      "measure": "sztukę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprzu białego",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "0,5 cytryny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "tymianku",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

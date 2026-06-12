@@ -27,15 +27,14 @@
       "problems": [
         "lęk",
         "niepokój",
+        "chaos",
         "ciągłe poczucie zagrożenia",
         "brak stabilności",
-        "chaos w codzienności",
         "problemy z koncentracją",
         "odcięcie od ciała",
         "chroniczne zmęczenie",
-        "słaby sen",
-        "brak regularności",
-        "napięcie nóg",
+        "napięcia dolnej części ciała",
+        "problemy z nogami",
         "napięcie odcinka lędźwiowego"
       ],
       "support": [
@@ -50,6 +49,13 @@
         "nawodnienie",
         "medytacja uziemiająca",
         "mantra LAM"
+      ],
+      "bach": [
+        "Mimulus — lęk przed konkretnymi sprawami",
+        "Aspen — niepokój bez jasnej przyczyny",
+        "Rock Rose — silny strach lub panika",
+        "Walnut — wsparcie przy zmianach i ochronie granic",
+        "Olive — wyczerpanie i brak sił"
       ]
     },
     {
@@ -76,8 +82,8 @@
         "wewnętrzna pustka",
         "nadmierna kontrola",
         "trudność w relacjach",
-        "trudność w bliskości",
-        "napięcie w podbrzuszu",
+        "napięcia w podbrzuszu",
+        "problemy hormonalne",
         "obniżona energia życiowa",
         "napięcie emocjonalne"
       ],
@@ -96,6 +102,13 @@
         "soczyste owoce",
         "nawodnienie",
         "mantra VAM"
+      ],
+      "bach": [
+        "Pine — poczucie winy",
+        "Cherry Plum — lęk przed utratą kontroli",
+        "Agrimony — ukrywanie emocji pod spokojną maską",
+        "Crab Apple — nieakceptowanie siebie",
+        "Wild Rose — apatia i utrata radości"
       ]
     },
     {
@@ -121,12 +134,13 @@
         "prokrastynacja",
         "trudność z decyzjami",
         "nadmierne podporządkowanie innym",
-        "chaos w działaniu",
+        "chaos",
         "potrzeba kontroli",
         "agresja",
         "nadmierny perfekcjonizm",
         "wybuchowość",
         "napięcie żołądka",
+        "problemy trawienne",
         "stres napięciowy"
       ],
       "support": [
@@ -143,6 +157,13 @@
         "kurkuma",
         "medytacja splotu słonecznego",
         "mantra RAM"
+      ],
+      "bach": [
+        "Larch — niska pewność siebie",
+        "Centaury — trudność w stawianiu granic",
+        "Hornbeam — odkładanie działania i zmęczenie przed startem",
+        "Gentian — zniechęcenie po trudnościach",
+        "Vine — potrzeba kontroli i dominacji"
       ]
     },
     {
@@ -171,6 +192,8 @@
         "brak akceptacji siebie",
         "napięcie w klatce piersiowej",
         "płytki oddech",
+        "napięcie emocjonalne",
+        "chroniczny stres",
         "nadmierne poświęcanie się",
         "brak granic",
         "uzależnienie emocjonalne",
@@ -190,6 +213,13 @@
         "świeże zioła",
         "medytacja serca",
         "mantra YAM"
+      ],
+      "bach": [
+        "Holly — zazdrość, złość, zamknięcie serca",
+        "Willow — żal i poczucie krzywdy",
+        "Star of Bethlehem — smutek po trudnym doświadczeniu",
+        "Chicory — nadmierne przywiązanie i potrzeba akceptacji",
+        "Beech — napięcie w relacjach i brak akceptacji"
       ]
     },
     {
@@ -221,9 +251,11 @@
         "agresja słowna",
         "plotkowanie",
         "brak słuchania innych",
-        "napięcie szyi",
+        "napięcia szyi",
         "napięcie gardła",
-        "zaciskanie szczęki"
+        "chrypka",
+        "zaciskanie szczęki",
+        "stres napięciowy"
       ],
       "support": [
         "szczerość",
@@ -240,6 +272,13 @@
         "nawodnienie",
         "medytacja gardła",
         "mantra HAM"
+      ],
+      "bach": [
+        "Agrimony — tłumienie tego, co naprawdę czujesz",
+        "Centaury — trudność w mówieniu „nie”",
+        "Cerato — brak zaufania do własnego głosu",
+        "Water Violet — zamykanie się i dystans",
+        "Vervain — napięcie w mówieniu i nadmierna presja"
       ]
     },
     {
@@ -272,6 +311,7 @@
         "nadmierne fantazjowanie",
         "napięcie czoła",
         "bóle głowy",
+        "przemęczenie psychiczne",
         "problemy ze snem"
       ],
       "support": [
@@ -289,6 +329,13 @@
         "lekkie posiłki",
         "medytacja trzeciego oka",
         "mantra OM"
+      ],
+      "bach": [
+        "White Chestnut — natrętne myśli",
+        "Scleranthus — trudność z decyzjami",
+        "Clematis — uciekanie w wyobrażenia",
+        "Chestnut Bud — powtarzanie tych samych schematów",
+        "Wild Oat — brak jasnego kierunku"
       ]
     },
     {
@@ -339,6 +386,13 @@
         "lekkie posiłki",
         "medytacja korony",
         "mantra OM"
+      ],
+      "bach": [
+        "Mustard — ciężki nastrój bez jasnej przyczyny",
+        "Gorse — utrata nadziei",
+        "Sweet Chestnut — poczucie skrajnego przeciążenia",
+        "Olive — głębokie wyczerpanie",
+        "Wild Rose — rezygnacja i obojętność"
       ]
     }
   ]

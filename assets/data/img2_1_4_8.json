@@ -1,0 +1,61 @@
+{
+  "main_title": "Sałatka z kalafiora",
+  "items": [
+    {
+      "name": "kalafiora",
+      "amount": 1,
+      "measure": "sztuka",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "pieprz biały",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "czosnku",
+      "amount": 2,
+      "measure": "ząbki",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sok z cytryny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "kurkumy",
+      "amount": 1,
+      "measure": "szczyptę ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "rzadkiego miodu",
+      "amount": 2,
+      "measure": "łyżeczki",
+      "base_unit": "g",
+      "base_value": 5
+    },
+    {
+      "name": "majonezu",
+      "amount": 1,
+      "measure": "łyżkę",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

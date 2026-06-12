@@ -1,52 +1,53 @@
 {
-  "main_title": "Kuracja oczyszczania z metali ciężkich",
+  "main_title": "Oczyszczanie z metali ciężkich",
+  "clock_days": 63,
   "items": [
     {
       "name": "Zeolit",
-      "amount": 200,
+      "amount": 150,
+      "measure": "gram",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "glinka",
+      "amount": 180,
       "measure": "gram",
       "base_unit": "",
       "base_value": 0
     },
     {
       "name": "Spirulina",
-      "amount": 200,
+      "amount": 160,
       "measure": "gram",
       "base_unit": "",
       "base_value": 0
     },
     {
       "name": "Błonnik",
-      "amount": 500,
-      "measure": "gram",
-      "base_unit": "",
-      "base_value": 0
-    },
-    {
-      "name": "Magnez",
-      "amount": 15,
+      "amount": 600,
       "measure": "gram",
       "base_unit": "",
       "base_value": 0
     },
     {
       "name": "Cynk",
-      "amount": 840,
+      "amount": 1000,
+      "measure": "mg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "Magnez",
+      "amount": 16,
       "measure": "gram",
       "base_unit": "",
       "base_value": 0
     },
     {
       "name": "Węgiel aktywny",
-      "amount": 50,
+      "amount": 30,
       "measure": "kapsułek",
-      "base_unit": "",
-      "base_value": 0
-    },
-    {
-      "name": "",
-      "amount": 0,
-      "measure": "",
       "base_unit": "",
       "base_value": 0
     }

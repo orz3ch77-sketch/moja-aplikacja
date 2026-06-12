@@ -1,0 +1,47 @@
+{
+  "main_title": "Buraczki - ćwikła",
+  "items": [
+    {
+      "name": "buraczków",
+      "amount": 1,
+      "measure": "kg",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "miodu",
+      "amount": 1,
+      "measure": "łyżeczkę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "ostrego chrzanu",
+      "amount": 0.2,
+      "measure": "litra ",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "białego pieprzu",
+      "amount": 1,
+      "measure": "szczyptę",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sól",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    },
+    {
+      "name": "sok z cytryny",
+      "amount": 0,
+      "measure": "",
+      "base_unit": "",
+      "base_value": 0
+    }
+  ]
+}

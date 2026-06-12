@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ClockTaskModel {
+  final String id;
   final int number;
   final String title;
   final String time;
@@ -11,6 +12,7 @@ class ClockTaskModel {
   final String? details;
 
   const ClockTaskModel({
+    this.id = '',
     required this.number,
     required this.title,
     required this.time,

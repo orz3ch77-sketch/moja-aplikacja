@@ -19,7 +19,7 @@ class OrbitTasksWidget extends StatelessWidget {
     required double angle,
   }) {
     const center = 250.0;
-    const radius = 214.0;
+    const radius = 202.0;
     const size = 58.0;
     final top = center + math.sin(angle) * radius - size / 2;
     final left = center + math.cos(angle) * radius - size / 2;
@@ -165,7 +165,7 @@ class _OrbitRingPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final center = size.center(Offset.zero);
-    const radius = 214.0;
+    const radius = 202.0;
     final rect = Rect.fromCircle(center: center, radius: radius);
     final basePaint = Paint()
       ..style = PaintingStyle.stroke

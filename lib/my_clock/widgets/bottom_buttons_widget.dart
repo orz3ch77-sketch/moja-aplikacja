@@ -78,7 +78,7 @@ class BottomButtonsWidget extends StatelessWidget {
           onTap: onMyTasks,
         ),
         buildButton(
-          title: '+ Dodane',
+          title: 'Dodane',
           icon: Icons.add_circle_outline_rounded,
           borderColor: const Color(0xFF00D0FF),
           onTap: onAdded,
