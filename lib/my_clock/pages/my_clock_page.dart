@@ -16,7 +16,12 @@ import '../widgets/top_bar_widget.dart';
 import '../../shared/confirm_delete_dialog.dart';
 
 class MyClockPage extends StatefulWidget {
-  const MyClockPage({super.key});
+  const MyClockPage({
+    super.key,
+    this.onBack,
+  });
+
+  final VoidCallback? onBack;
 
   @override
   State<MyClockPage> createState() => _MyClockPageState();
@@ -119,8 +124,12 @@ class _MyClockPageState extends State<MyClockPage> {
                         child: Column(
                           children: [
                             TopBarWidget(
+                              onBack: widget.onBack,
                               onCalendar: () {
                                 _showCalendarDialog();
+                              },
+                              onSettings: () {
+                                _showClockSettingsDialog();
                               },
                             ),
                             Padding(
@@ -775,6 +784,59 @@ class _MyClockPageState extends State<MyClockPage> {
         monthName: _monthName,
         weekdayName: _weekdayName,
       ),
+    );
+  }
+
+  Future<void> _showClockSettingsDialog() async {
+    final settingsBox = Hive.box('clock_settings');
+    var openClockBeforeApp =
+        settingsBox.get('openClockBeforeApp', defaultValue: false) == true;
+
+    await showDialog<void>(
+      context: context,
+      builder: (dialogContext) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: const Text('Ustawienia zegara'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CheckboxListTile(
+                    value: openClockBeforeApp,
+                    contentPadding: EdgeInsets.zero,
+                    controlAffinity: ListTileControlAffinity.leading,
+                    title: const Text('Zegar przed otwarciem aplikacji'),
+                    onChanged: (value) async {
+                      final enabled = value ?? false;
+                      await settingsBox.put('openClockBeforeApp', enabled);
+                      setDialogState(() => openClockBeforeApp = enabled);
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      icon: const Icon(Icons.restart_alt_rounded),
+                      label: const Text('Wróć do ustawień początkowych'),
+                      onPressed: () async {
+                        await settingsBox.delete('openClockBeforeApp');
+                        setDialogState(() => openClockBeforeApp = false);
+                      },
+                    ),
+                  ),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(dialogContext),
+                  child: const Text('Zamknij'),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 

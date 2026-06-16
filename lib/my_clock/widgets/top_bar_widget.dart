@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class TopBarWidget extends StatelessWidget {
   const TopBarWidget({
     super.key,
+    this.onBack,
     this.onCalendar,
+    this.onSettings,
   });
 
+  final VoidCallback? onBack;
   final VoidCallback? onCalendar;
+  final VoidCallback? onSettings;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +25,7 @@ class TopBarWidget extends StatelessWidget {
           // POWRÓT
           InkWell(
             borderRadius: BorderRadius.circular(18),
-            onTap: () => Navigator.maybePop(context),
+            onTap: onBack ?? () => Navigator.maybePop(context),
             child: Container(
               width: 52,
               height: 52,
@@ -80,27 +84,31 @@ class TopBarWidget extends StatelessWidget {
           ),
 
           // USTAWIENIA
-          Container(
-            width: 52,
-            height: 52,
-            decoration: BoxDecoration(
-              color: const Color(0x221F2A44),
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(
-                color: const Color(0xFFB44CFF),
-                width: 1.2,
-              ),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x33B44CFF),
-                  blurRadius: 15,
+          InkWell(
+            borderRadius: BorderRadius.circular(18),
+            onTap: onSettings,
+            child: Container(
+              width: 52,
+              height: 52,
+              decoration: BoxDecoration(
+                color: const Color(0x221F2A44),
+                borderRadius: BorderRadius.circular(18),
+                border: Border.all(
+                  color: const Color(0xFFB44CFF),
+                  width: 1.2,
                 ),
-              ],
-            ),
-            child: const Icon(
-              Icons.settings_rounded,
-              color: Colors.white,
-              size: 26,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x33B44CFF),
+                    blurRadius: 15,
+                  ),
+                ],
+              ),
+              child: const Icon(
+                Icons.settings_rounded,
+                color: Colors.white,
+                size: 26,
+              ),
             ),
           ),
         ],

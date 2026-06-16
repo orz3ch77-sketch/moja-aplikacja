@@ -7,6 +7,7 @@ import 'package:url_launcher/url_launcher.dart';
 import 'chakra/chakra_test_page.dart';
 import 'friends/friends_page.dart';
 import 'my_clock/pages/my_clock_page.dart';
+import 'my_clock/services/clock_level_metadata.dart';
 import 'shared/confirm_delete_dialog.dart';
 import 'voice/voice_description_loader.dart';
 import 'voice/voice_speaker.dart';
@@ -111,6 +112,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await loadAppAssets();
+  await loadClockLevelTitles();
 
   await Hive.initFlutter();
   await Hive.openBox('todo_links');
@@ -121,6 +123,7 @@ void main() async {
   await Hive.openBox('shopping_lists_main');
   await Hive.openBox('friends');
   await Hive.openBox('todo_analysis_archive');
+  await Hive.openBox('clock_settings');
 
   runApp(const MyApp());
 }
@@ -144,9 +147,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final openClockBeforeApp =
+        Hive.box('clock_settings').get('openClockBeforeApp') == true;
+
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: StartPage(),
+      home: openClockBeforeApp
+          ? Builder(
+              builder: (context) {
+                return MyClockPage(
+                  onBack: () {
+                    Navigator.pushReplacement(
+                      context,
+                      slideRoute(const CategoryPage()),
+                    );
+                  },
+                );
+              },
+            )
+          : const StartPage(),
     );
   }
 }

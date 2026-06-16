@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 // Wygenerowane z C:\DOM\Nagłówki. Nazwa poziomu pochodzi z folderu przypisanego do ikony.
 const Map<String, String> clockLevelTitles = {
@@ -269,6 +272,24 @@ const Map<String, String> clockLevelTitles = {
   'img8_6': 'Moje oszczędności',
 };
 
+Map<String, String> _assetClockLevelTitles = <String, String>{};
+
+Future<void> loadClockLevelTitles() async {
+  try {
+    final text = await rootBundle.loadString('assets/clock_level_titles.json');
+    final decoded = json.decode(text) as Map<String, dynamic>;
+    final titles = decoded['titles'];
+
+    if (titles is Map<String, dynamic>) {
+      _assetClockLevelTitles = titles.map(
+        (key, value) => MapEntry(key, '$value'.trim()),
+      )..removeWhere((key, value) => value.isEmpty);
+    }
+  } catch (_) {
+    _assetClockLevelTitles = <String, String>{};
+  }
+}
+
 String clockLevelBaseFromImagePath(String path) {
   final fileName = path.replaceAll('\\', '/').split('/').last;
   final base = fileName.replaceAll(RegExp(r'\.[^.]+$'), '');
@@ -289,7 +310,8 @@ String? _knownTitleForBase(String base) {
   var candidate = base;
 
   while (candidate.isNotEmpty) {
-    final title = clockLevelTitles[candidate];
+    final title =
+        _assetClockLevelTitles[candidate] ?? clockLevelTitles[candidate];
     if (title != null) {
       return title;
     }
